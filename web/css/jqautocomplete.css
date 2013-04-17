@@ -1,0 +1,107 @@
+#search-box {
+    position: relative;
+    margin: 0;
+    width: 350px;
+    z-index: 2;
+}
+
+#search-text {
+    font-size: 14px;
+    color: #ddd;
+    border-width: 0;
+    background: transparent;
+    position: absolute;
+}
+
+#search-box input[type="text"] {
+    width: 250px;
+    padding: 10px 0 10px 1em;
+    color: #333;
+    outline: none;
+}
+
+#search-form {
+    height: 40px;
+    border: 1px solid #eee;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+    -webkit-box-shadow: inset 2px 2px 4px #ccc;
+    -moz-box-shadow: inset 2px 2px 4px #ccc;
+    box-shadow: inset 2px 2px 4px #ccc;
+    overflow: hidden;
+}
+
+#search-button {
+    position: absolute;
+    top: 5px;
+    right: 4px;
+    height: 32px;
+    width: 80px;
+    font-size: 14px;
+    color: #fff;
+    line-height: 32px;
+    text-align: center;
+    text-shadow: 1px 1px 0px #888;
+    border-width: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #bbb;
+    background: -moz-linear-gradient(top, #64C1ED 0%, #225AA0);
+    background: -webkit-gradient(linear, left top, left bottom, from(#3776C8), to(#144380));
+    -webkit-box-shadow: inset 0px -1px 1px #888, 0px 2px 2px #ccc;
+    -moz-box-shadow: inset 0px -1px 1px #888, 0px 2px 2px #ccc;
+    box-shadow: inset 0px -1px 1px #888, 0px 2px 2px #ccc;
+    cursor: pointer;
+}
+
+.ac_results {
+	padding: 0px;
+	border: 1px solid WindowFrame;
+	background-color: Window;
+	overflow: hidden;
+        z-index: 2;
+}
+
+.ac_results ul {
+	width: 100%;
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ac_results iframe {
+	display:none;/*sorry for IE5*/
+	display/**/:block;/*sorry for IE5*/
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:-1;
+	filter:mask();
+	width:3000px;
+	height:3000px;
+}
+
+.ac_results li {
+	margin: 0px;
+	padding: 7px 0px;
+	cursor: pointer;
+	display: block;
+	width: 100%;
+	font: menu;
+	font-size: 12px;
+	overflow: hidden;
+        border: 1px solid windowframe;
+}
+
+.ac_loading {
+	background : Window url('./indicator.gif') right center no-repeat;
+}
+
+.ac_over {
+	background-color: Highlight;
+	color: HighlightText;
+}
