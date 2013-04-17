@@ -11,7 +11,7 @@ import modelo.Producto;
 
 /**
  *
- * @author oswaldomaestra
+ * @author Jesus
  */
 @Stateless
 public class ProductoFacade extends AbstractFacade<Producto> {

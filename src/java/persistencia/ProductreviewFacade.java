@@ -11,7 +11,7 @@ import modelo.Productreview;
 
 /**
  *
- * @author oswaldomaestra
+ * @author Jesus
  */
 @Stateless
 public class ProductreviewFacade extends AbstractFacade<Productreview> {

@@ -11,7 +11,7 @@ import modelo.Orden;
 
 /**
  *
- * @author oswaldomaestra
+ * @author Jesus
  */
 @Stateless
 public class OrdenFacade extends AbstractFacade<Orden> {

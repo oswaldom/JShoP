@@ -11,7 +11,7 @@ import modelo.Tipodepago;
 
 /**
  *
- * @author oswaldomaestra
+ * @author Jesus
  */
 @Stateless
 public class TipodepagoFacade extends AbstractFacade<Tipodepago> {

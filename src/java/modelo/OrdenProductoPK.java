@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author oswaldomaestra
+ * @author Jesus
  */
 @Embeddable
 public class OrdenProductoPK implements Serializable {

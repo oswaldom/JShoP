@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author oswaldomaestra
+ * @author Jesus
  */
 @Entity
 @Table(name = "producto_categoria")
