@@ -9,25 +9,47 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       
+
+        <script src="js/jquery-1.4.2.js" type="text/javascript"></script>
+        <script src="js/jquery-ui-1.8.4.custom.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"  charset="utf-8"></script> 
+        
+        
         <link rel="shortcut icon" href="img/favicon.ico">
         <link rel="stylesheet" type="text/css" href="css/jshop-style.css">
         <link rel="stylesheet" type="text/css" href="css/jshop-style2.css">
         <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" media="screen" charset="utf-8"/>
         <link rel="stylesheet" type="text/css" href="css/messi.min.css">
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/jqautocomplete.css">
         <script src="js/messi.js" type="text/javascript"></script>
-        <script type="text/javascript" src="js/jquery1.4.2.js"></script>
-        <script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
-        <script type="text/javascript" src="js/jquery-1.7.2.min.js"  charset="utf-8"></script>        
-        <script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js" charset="utf-8"></script>       
+             
+        <script type="text/javascript" src="js/jqautocomplete.js"></script>
         <title>JShoP, JSP e-Commerce</title>
     </head>
     <body>
         <div id="main">
             <div id="header_wrapper">
-                <div id="header">
-                    <c:if test="${!empty registrado}">
+                
+                <a href="<c:url value='/'/>">
+                        <img src="img/logo.png" id="logo" alt="JShoP logo">
+                    </a> 
+                
+                <div id='search-box'>
+                
+                    <form action='' id='search-form' method='get' target='_top'>
+                        <input id='search-text' name='q' placeholder='Buscar producto...' type='text'/>
+                        <button id='search-button' type='submit'><span>Search</span></button>
+                    </form>
+                
+                    <script>
+                        $("#search-text").autocomplete("getdata.jsp");
+                    </script>
+      
+                </div>  
+                        
+                        <c:if test="${!empty registrado}">
                         <script>new Messi('<p>No se ha podido autenticar con Google</p>\n\
                                     <p><strong>${nombre}</strong> no se encuentra registrado.</p> \n\
                                     <p>Debe registrarse para iniciar sesion</p>',
@@ -36,6 +58,10 @@
                         
                         </script>    
                     </c:if>
+                   
+                
+                <div id="header">
+                    
                     <c:if test="${empty loggedIn}">
                         <a href="#" class="login_btn"><span>Inicie sesión</span><div class="triangle"></div></a>
                         <div id="login_box">
@@ -132,8 +158,8 @@
                     </c:if>
 
 
-
-                    <a href="<c:url value='/'/>">
-                        <img src="img/logo.png" id="logo" alt="JShoP logo">
-                    </a>
+                    
+                    
+                        
                 </div>
+                        

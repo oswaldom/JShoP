@@ -7,25 +7,24 @@
 
 <div id="categoryLeftColumn">
 
-    <c:forEach var="categoria" items="${categorias}">
-
+    <c:forEach var="subCategoria" items="${subCategorias}">
+        <div class="categoryBox">
         <c:choose>
-            <c:when test="${categoria.nombreCategoria == categoriaSeleccionada.nombreCategoria}">
-                <div class="categoryButton" id="selectedCategory">
-                    <span class="categoryText">
-                        ${categoria.nombreCategoria}
-                    </span>
-                </div>
+            <c:when test="${subCategoria.nombreCategoria == categoriaSeleccionada.nombreCategoria}">
+                
+                <div class="categoryButton" id="selectedCategory">${subCategoria.nombreCategoria}</div>
+            
             </c:when>
+                
             <c:otherwise>
-                <a href="<c:url value='categoria?${categoria.idCategoria}'/>" class="categoryButton">
-                    <span class="categoryText">
-                        ${categoria.nombreCategoria}
-                    </span>
+                
+                <a href="<c:url value='categoria?${subCategoria.idCategoria}'/>">
+                    <div class="categoryButton">${subCategoria.nombreCategoria}</div>
                 </a>
+                         
             </c:otherwise>
         </c:choose>
-
+</div>
     </c:forEach>
 
 </div>
@@ -33,24 +32,30 @@
 <div id="categoryRightColumn">
 
     <p id="categoryTitle">${categoriaSeleccionada.nombreCategoria}</p>
-
-    <table id="productTable">
-
-        <c:forEach var="producto" items="${productosCategoria}" varStatus="iter">
+    
+    <c:if test="${categoriaSeleccionada.categoriaList.isEmpty()}">
+        
+        <c:forEach var="productos" items="${productosCategoria}" varStatus="iter">
+            
+            <div align="center" class="productDiv">
 
             <td class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
-                <td>
-                    <%--<img src="${initParam.productImagePath}${product.name}.png"
-                         alt="${product.name}">--%>
-                    <a href="<c:url value='producto?${producto.producto.idProducto}'/>">
-                <span class="productLabel"></span>
-                <span class="productLabelText">${producto.producto.nombreProducto}</span>
+                
+                <img src="${initParam.productImagePath}${productos.producto.nombreProducto}.jpg"
+                         alt="${productos.producto.nombreProducto}">
+                    
+                <div align="center" class="productDescription">
+                <a href="<c:url value='producto?${productos.producto.idProducto}'/>">
+                
+                    <span class="productLabel"></span>
+                    <span class="productDescription">${productos.producto.nombreProducto}</span>
 
-            </a>
+                </a>
+                    
 
                     <br>
-                    <span class="smallText">${producto.producto.descripcionProducto}</span>
-                    &euro; ${producto.producto.precioProducto}
+                    <span class="smallText">${productos.producto.descripcionProducto}</span>
+                    &euro; ${productos.producto.precioProducto}
                     <%-- <form id="slick-login" action="<c:url value='anadirAlCarrito'/>" method="post">
                         <input type="hidden"
                                name="productId"
@@ -59,10 +64,12 @@
                                name="submit"
                                value="add to cart">
                     </form>--%>
-                </td>
-            </td>
-            <tr></tr>
+                    </div>
+            
+            </div>
         </c:forEach>
 
-    </table>
+        
+        
+        </c:if>
 </div>

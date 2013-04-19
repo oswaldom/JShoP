@@ -4,7 +4,7 @@ body {
     text-align: center;
     margin: 20px auto;
     color: #444;
-    background-color:#F2F2F2;
+    background-color:#FFF;
 }
 
 hr {
@@ -22,7 +22,7 @@ table {
 
 a {
     color: inherit;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 a:hover { text-decoration: none }
@@ -73,7 +73,7 @@ label { line-height: 30px }
    shopping cart widget, language toggle, and logo */
 #header {
     width: 1000px;
-    height: 100px;
+    height: 65px;
 }
 .loginBox {
     text-align: center;
@@ -231,15 +231,16 @@ label { line-height: 30px }
 
 /* footer styles */
 #footer {
-    height: 60px;
-    width: 350px;
-    clear: left;
+    position: relative; 
+    margin-top: -50px; /* altura en px del footer con valor negativo */
+    height: 50px; /* Altura del Footer en px*/
+    clear: both;
+    text-align: center;
 }
 
 #footerText { margin-top: 5px }
 
 #footerDivider {
-    margin: 0 25px;
     width: 300px;
 }
 
@@ -247,16 +248,16 @@ label { line-height: 30px }
 /* index page styles */
 #indexLeftColumn {
     text-align: left;
-    height: 400px;
-    width: 350px;
+    width: 300px;
     float: left;
+    margin: 30px 0px 0px 0px;
 }
 
 #indexRightColumn {
     text-align: left;
-    height: 650px;
-    width: 500px;
+    width: 700px;
     float: left;
+    margin: 30px 0px 0px 0px;
 }
 
 #welcomeText {
@@ -265,19 +266,28 @@ label { line-height: 30px }
 }
 
 .categoryBox {
-    height: 176px;
+    height: 42px;
     width: 212px;
-    margin: 21px 14px 6px;
-    float: inherit;
+    float: none;
 }
 
 .categoryLabel {
     position: absolute;
-    background-color: #fff;
-    opacity: 0.7;
+    border-radius: 2px;
+    opacity: 1;
     height: 40px;
     width: 210px;
     margin: 2px;
+    border: 2px solid cornflowerblue;
+    line-height: 150%;
+    font-size: x-large;
+    text-align:center;
+}
+
+.categoryLabel:hover {
+
+    background: -webkit-gradient(linear, left top, left bottom, from(#4678D7), to(#8FBFF7));
+    color: #fff;
 }
 
 .categoryLabelText {
@@ -295,35 +305,42 @@ label { line-height: 30px }
 
 /* category page styles */
 #categoryLeftColumn {
-    width: 185px;
+    text-align: left;
+    width: 250px;
     float: left;
-    margin-top: 25px;
-    padding-left: 15px;
+    margin: 30px 0px 0px 0px;
 }
 
 #categoryRightColumn {
     margin-top: 10px;
-    width: 650px;
+    width: 750px;
     float: left;
 }
 
 .categoryButton {
     margin: 15px 22px;
-    padding: 13px;
-    display: block;
-    background-color: #d3ede8;
+    padding: 11px;
+    display: run-in;
+    border: 2px solid cornflowerblue;
+}
+
+.categoryButton:hover{
+    background: -webkit-gradient(linear, left top, left bottom, from(#4678D7), to(#8FBFF7));
+    color:#FFF;
+    border-radius: 2px;
 }
 
 #selectedCategory {
-    background-color: #b2d2d2;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4678D7), to(#8FBFF7));
+    color: #FFF;
     margin-left: 10px;
     width: 139px;
 }
 
 #categoryTitle {
-    margin: -34px 180px 0 0;
+    margin: -19px 0px 0 0;
     font-size: x-large;
-    float: right;
+    float: none;
     background-color: #f5eabe;
     padding: 7px;
 }
@@ -339,6 +356,13 @@ label { line-height: 30px }
 
 #productTable td { width: 145px }
 
+.productDiv {
+    float:left;
+    width:33%;
+    height: 340px;
+    border: 1px solid cornflowerblue;
+}
+
 
 .productDetail {
     background-color: whitesmoke;
@@ -353,14 +377,11 @@ label { line-height: 30px }
 }
 .productDescription {
     line-height: 150%;
-    text-align: justify;
-    float: left;
+    text-align: center;
+    float: none;
     background-color: ghostwhite;
-    margin-left: 10px;
-    margin-top: 10px;
-    height: 350px;
-    width: 490px;
-    color: gray;
+    color: cornflowerblue;
+    font-size: 13px;
     
 }
 .productImage {

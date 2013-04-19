@@ -98,6 +98,7 @@ public class ServletControlador extends HttpServlet {
         Categoria categoriaSeleccionada;
         List<ProductoCategoria> productosCategoria;
         Producto productoSeleccionado;
+        
         if (userPath.equals("/categoria")) {
 
             String idCategoria = request.getQueryString();
@@ -109,10 +110,20 @@ public class ServletControlador extends HttpServlet {
                 // place selected category in session scope
                 session.setAttribute("categoriaSeleccionada", categoriaSeleccionada);
 
-                // get all products for selected category
-                productosCategoria = categoriaSeleccionada.getProductoCategoriaList();
-//                // place category products in session scope
-                session.setAttribute("productosCategoria", productosCategoria);
+                if (!categoriaSeleccionada.getCategoriaList().isEmpty()){ 
+                    
+                    session.setAttribute("subCategorias", categoriaSeleccionada.getCategoriaList());
+                    
+                }
+
+                else{
+                    // get all products for selected category
+                    productosCategoria = categoriaSeleccionada.getProductoCategoriaList();
+
+                    // place category products in session scope
+                    session.setAttribute("productosCategoria", productosCategoria);
+                  
+                }
             }
 
 } else if (userPath.equals("/producto")) {
