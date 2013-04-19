@@ -7,7 +7,7 @@
 
 <div id="categoryLeftColumn">
 
-    <c:forEach var="subCategoria" items="${subCategorias}">
+    <c:forEach var="subCategoria" items="${categoriaSeleccionada.categoriaList}">
         <div class="categoryBox">
         <c:choose>
             <c:when test="${subCategoria.nombreCategoria == categoriaSeleccionada.nombreCategoria}">
@@ -35,7 +35,7 @@
     
     <c:if test="${categoriaSeleccionada.categoriaList.isEmpty()}">
         
-        <c:forEach var="productos" items="${productosCategoria}" varStatus="iter">
+        <c:forEach var="productos" items="${categoriaSeleccionada.productoCategoriaList}" varStatus="iter">
             
             <div align="center" class="productDiv">
 

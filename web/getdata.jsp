@@ -9,7 +9,9 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:forEach  var="productos" items="${productosCategoria}" >
+<c:if test="${!empty categoriaSeleccionada.productoCategoriaList}">
+    
+<c:forEach  var="productos" items="${categoriaSeleccionada.productoCategoriaList}" >
     <c:if test="${fn:startsWith(fn:toLowerCase(productos.producto.nombreProducto), param.q)}">
         
         <c:out value="${productos.producto.nombreProducto}"></c:out>
@@ -17,3 +19,5 @@
     </c:if>
     
 </c:forEach>
+    
+</c:if>
