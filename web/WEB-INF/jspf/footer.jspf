@@ -1,0 +1,13 @@
+<div id="footer">
+                <br>
+                <hr id="footerDivider">
+                <p id="footerText" class="reallySmallText">
+                    <a href="<c:url value='#'/>">JShoP e-Commerce</a>
+                    &nbsp;&nbsp;::&nbsp;&nbsp;
+                    <a href="<c:url value='#'/>">Contacto</a>
+                    &nbsp;&nbsp;&copy;&nbsp;&nbsp;
+                    2013</p>
+            </div>
+        </div>
+    </body>
+</html>

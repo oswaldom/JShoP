@@ -1,17 +1,28 @@
 <%-- 
     Document   : index
-    Created on : 17-abr-2013, 14:05:36
+    Created on : 15-abr-2013, 4:02:11
     Author     : oswaldomaestra
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<div id="indexLeftColumn">
+    <div id="welcomeText">
+        <p style="font-size: larger">Texto de bienvenida</p>
+
+        <p>Texto de bienvenida</p>
+    </div>
+</div>
+
+<div id="indexRightColumn">
+    <c:forEach var="categoria" items="${categorias}">
+        <div class="categoryBox">
+            <a href="<c:url value='categoria?${categoria.idCategoria}'/>">
+                <span class="categoryLabel"></span>
+                <span class="categoryLabelText">${categoria.nombreCategoria}</span>
+                <%--
+                <img src="${initParam.categoryImagePath}${category.name}.jpg"
+                     alt="${category.name}" class="categoryImage">
+                --%>
+            </a>
+        </div>
+    </c:forEach>
+</div>
