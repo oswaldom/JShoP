@@ -81,11 +81,12 @@ public class ServletControladorDatos extends HttpServlet {
             
                 productoFacade.create(producto);
                 
-                userPath = "verProductos";
             
             }catch(Exception ex){
                 System.out.println(ex);
             }
+            
+            userPath = "verProductos";
         }
         
         // use RequestDispatcher to forward request internally
