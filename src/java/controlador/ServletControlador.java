@@ -231,6 +231,7 @@ public class ServletControlador extends HttpServlet {
         }
         try {
             request.getRequestDispatcher(url).forward(request, response);
+            session.setAttribute("actualURL", userPath);
 
         } catch (Exception ex) {
             ex.printStackTrace();
