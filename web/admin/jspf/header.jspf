@@ -1,0 +1,71 @@
+<%-- 
+    Document   : index
+    Created on : 17-abr-2013, 12:14:26
+    Author     : oswaldomaestra
+--%>
+
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="../css/jshop-style.css">
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+        <script src="../js/jquery-1.4.2.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('tr.tableRow').hover(
+                    function () {
+                        $(this).addClass('selectedRow');
+                    },
+                    function () {
+                        $(this).removeClass('selectedRow');
+                    }
+                );
+             });
+        </script>
+        
+ 
+        <script type="text/javascript">
+        //Formulario overlay insert producto
+            function closeLogin() {
+                document.getElementById('container').style.display = "none";
+                document.getElementById("container").removeChild(document.getElementById("overlay"));
+            }
+            function loginOverlay () {
+                document.getElementById('container').style.display = "block";
+                var overlay = document.createElement("div");
+                var productForm = document.getElementById("product_form");
+                overlay.setAttribute("id", "overlay");
+                overlay.style.position = "fixed";
+                overlay.style.top = "0px";
+                overlay.style.left = "0px";
+                overlay.style.right = "0px";
+                overlay.style.bottom = "0px";
+                overlay.style.backgroundColor = "rgba(150,150,150,0.50)";
+                overlay.style.zIndex = 900;
+                //innerHTML = "<form> First name: <input type=\"text\" name=\"firstname\"/> <br/>Lastname: <input type=\"text\" name=\"lastname\"/></form><br/><a href='#c' onclick='closeLogin();'>close</a> ";
+                overlay.appendChild(productForm);
+                document.getElementById("container").appendChild(overlay);
+            }
+        </script>
+
+        <title>JShoP :: Admin Console</title>
+    </head>
+
+    <body>
+        <div id="main">
+            <div id="header">
+                <div id="widgetBar"></div>
+            </div>
+
+            <h2>admin console</h2>
