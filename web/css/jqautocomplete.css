@@ -20,10 +20,13 @@
 }
 
 #search-box input[type="text"] {
-    width: 80%;
-    padding: 8px 5px 8px 1em;
+    position: absolute;
+    width: 55%;
+    padding: 9px 5px;
     color: #333;
     outline: none;
+    left: 150px;
+    top: 1px;
 }
 
 #search-form {
@@ -37,6 +40,11 @@
     -moz-box-shadow: inset 2px 2px 4px #ccc;
     box-shadow: inset 2px 2px 4px #ccc;
     overflow: hidden;
+    position: relative;
+}
+
+#categorias_box {
+    position: absolute;
 }
 
 #search-button {

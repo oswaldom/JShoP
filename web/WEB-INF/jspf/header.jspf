@@ -22,6 +22,8 @@
         <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" media="screen" charset="utf-8"/>
         <link rel="stylesheet" type="text/css" href="css/messi.min.css">
         <link rel="stylesheet" type="text/css" href="css/jqautocomplete.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    
         <script src="js/messi.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/login.js"></script>
         
@@ -44,6 +46,9 @@
         
              
         <script type="text/javascript" src="js/jqautocomplete.js"></script>
+        <script type="text/javascript" src="js/dropdownList.js"></script>
+        
+        
         <title>JShoP, JSP e-Commerce</title>
     </head>
     <body>
@@ -55,10 +60,22 @@
                     </a>
                 
                 <div id='search-box'>
-                
-                    <form action='' id='search-form' method='get' target='_top'>
+                    
+                    <form action="buscar" id="search-form" method="get" target="_top">
+                        <select onchange="document.getElementById('idCategoria').value=this.value;">
+                            <option value="" selected>Todas las categorias</option>
+                            <c:forEach var="categoria" items="${categorias}">
+                                <c:if test="${categoria.categoriaList.isEmpty()}">
+                                    <option value="<c:out value="${categoria.idCategoria}"></c:out>">
+                                        <c:out value="${categoria.nombreCategoria}"></c:out></option>
+                                </c:if>
+                            </c:forEach>
+                                    
+                        </select>       
+                        <input value="" type="hidden" name="idCategoria" id="idCategoria"/>
                         <input id='search-text' name='q' placeholder='Buscar producto...' type='text'/>
                         <button id='search-button' type='submit'><span>Search</span></button>
+                        
                     </form>
                 
                     <script>

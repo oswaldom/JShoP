@@ -49,7 +49,8 @@ import persistencia.ProductoFacade;
     "/activar",
     "/noRegistrado",
     "/registrar",
-    "/registrarme"
+    "/registrarme",
+    "/buscar"
 })
 public class ServletControlador extends HttpServlet {
 
@@ -93,9 +94,9 @@ public class ServletControlador extends HttpServlet {
             throws ServletException, IOException {
 
         String userPath = request.getServletPath();
-        HttpSession session = request.getSession();
-        System.out.println(userPath);
+        HttpSession session = request.getSession();    
         Categoria categoriaSeleccionada;
+        Categoria categoriaSearch;
         List<ProductoCategoria> productosCategoria;
         Producto productoSeleccionado;
         
@@ -112,7 +113,9 @@ public class ServletControlador extends HttpServlet {
                 
             }
 
-} else if (userPath.equals("/producto")) {
+        } 
+        
+        else if (userPath.equals("/producto")) {
             String idProducto = request.getQueryString();
             if (idProducto != null) {
                 // get selected category
@@ -137,6 +140,32 @@ public class ServletControlador extends HttpServlet {
 //                session.setAttribute("relatedProducts", relatedProducts);
 
             }
+            
+            
+        } 
+        
+        else if (userPath.equals("/buscar")) {
+            
+            String idBusqueda = request.getParameter("idCategoria");
+            String busqueda = request.getParameter("q");
+            String mensaje = null;
+            
+            if (!idBusqueda.equals("")) {
+                
+                categoriaSearch = categoriaFacade.find(Integer.parseInt(idBusqueda));
+                mensaje = "Productos de " + categoriaSearch.getNombreCategoria();
+                
+                session.setAttribute("categoriaSearch", categoriaSearch);
+    
+            }
+            else {
+                session.setAttribute("categorias", categoriaFacade.findAll());
+                mensaje = "Productos de todas las categorias";
+            }
+            
+            session.setAttribute("busqueda", busqueda);
+            session.setAttribute("mensaje", mensaje);
+    
         }
             // if cart page is requested
 //        } else if (userPath.equals("/verCarrito")) {

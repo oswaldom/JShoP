@@ -17,6 +17,6 @@
         <p><strong>password:</strong>
             <input type="password" size="20" name="j_password"></p>
 
-        <p><input type="submit" value="submit"></p>
+        <button type='submit'><span>Log in</span></button>
     </div>
 </form>

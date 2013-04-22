@@ -1,7 +1,7 @@
 <%--
-    Document   : category
-    Created on : May 21, 2010, 12:20:23 AM
-    Author     : tgiunipero
+    Document   : categoria
+    Created on : Feb 10, 2013, 12:20:23 AM
+    Author     : oswaldomaestra
 --%>
 
 
@@ -41,7 +41,7 @@
 
             <td class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
                 
-                <img src="${initParam.productImagePath}${productos.producto.nombreProducto}.jpg"
+                <img src="${initParam.productImagePath}${productos.producto.idProducto}.jpg"
                          alt="${productos.producto.nombreProducto}">
                     
                 <div align="center" class="productDescription">

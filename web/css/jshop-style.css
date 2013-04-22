@@ -31,7 +31,7 @@ a:visited { color: inherit }
 
 img { border: none }
 
-input, select { margin: 5px }
+input, select { margin: 4px }
 
 li { margin: 10px 0 }
 
@@ -338,7 +338,7 @@ label { line-height: 30px }
 }
 
 #categoryTitle {
-    margin: -19px 0px 0 0;
+    margin: -10px 0px 0 0;
     font-size: x-large;
     float: none;
     background-color: #f5eabe;

@@ -67,11 +67,13 @@ public class ServletAdministrador extends HttpServlet {
         
         // Si se hace una peticion a verProductos
         if (userPath.equals("/admin/verProductos")) {
+            
             productoList = productoFacade.findAll();
             proximoProductoId = productoFacade.count() + 1;
+            
             request.setAttribute("productoList", productoList);
             request.setAttribute("proximoProductoId", proximoProductoId);
-            System.out.println(proximoProductoId);
+            
         }
 
         // Si se hace una peticion a verClientes
