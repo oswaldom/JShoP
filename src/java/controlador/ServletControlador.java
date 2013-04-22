@@ -159,6 +159,7 @@ public class ServletControlador extends HttpServlet {
     
             }
             else {
+                categoriaSearch = null;
                 session.setAttribute("categorias", categoriaFacade.findAll());
                 mensaje = "Productos de todas las categorias";
             }
