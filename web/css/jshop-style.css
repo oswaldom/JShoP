@@ -332,7 +332,27 @@ label { line-height: 30px }
     line-height: 25px;
     font-size: x-large;
 }
-
+#tituloOpcion {
+    margin: -34px 0 20px 0;
+    color: white;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+    text-shadow: 0px 1px 1px black;
+    float: left;
+    background-color: #5b6ddc;
+    
+    padding: 7px;
+}
+#subtituloOpcion {
+    margin: 10px 100px 20px 0;
+    color: black;
+    font-size: medium;
+    text-align: left;
+    float: left;
+    
+    padding: 7px;
+}
 #productTable { width: 700px }
 
 #productTable tr { height: 90px }

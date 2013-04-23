@@ -9,7 +9,7 @@ $(document).ready(function() {
             loginBox.fadeIn("fast");
         return false;
     });
-    $(".cancel_btn").click(function() {
+    $(".btn-warning").click(function() {
         var loginBox = $("#login_box");
         if (loginBox.is(":visible"))
             loginBox.fadeOut("fast");
@@ -22,5 +22,4 @@ $(document).ready(function() {
     }, function(){ 
         mouse_is_inside=false; 
     });
-  document.getElementById("Mes").get
 });

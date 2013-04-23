@@ -6,6 +6,7 @@ package persistencia;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Table;
 
 /**
  *
@@ -17,7 +18,7 @@ public abstract class AbstractFacade<T> {
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-
+ 
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
@@ -58,5 +59,11 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+    public int sequenceVal(){
+        String nombreDeTabla=entityClass.getAnnotation(Table.class).name();
+        javax.persistence.Query q = 
+                getEntityManager()
+                .createNativeQuery("select nextval('seq_"+nombreDeTabla+"')");
+        return ((Long) q.getSingleResult()).intValue();
+    }
 }

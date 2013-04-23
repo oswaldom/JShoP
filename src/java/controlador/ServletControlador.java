@@ -6,13 +6,17 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -24,12 +28,17 @@ import javax.servlet.http.HttpSession;
 import modelo.Categoria;
 import modelo.Cliente;
 import modelo.Lugar;
+import modelo.Orden;
+import modelo.OrdenProducto;
 import modelo.Producto;
 import modelo.ProductoCategoria;
 import persistencia.CategoriaFacade;
 import persistencia.ClienteFacade;
 import persistencia.LugarFacade;
+import persistencia.OrdenFacade;
+import persistencia.OrdenProductoFacade;
 import persistencia.ProductoFacade;
+import persistencia.TipodepagoFacade;
 
 /**
  *
@@ -48,8 +57,8 @@ import persistencia.ProductoFacade;
     "/cerrarSesion",
     "/activar",
     "/noRegistrado",
-    "/registrar",
-    "/registrarme"
+    "/registrar", "/solicitarEnlace",
+    "/registrarme", "/perfil", "/verPerfil", "/verOrden", "/orden", "/anadirTarjeta"
 })
 public class ServletControlador extends HttpServlet {
 
@@ -68,9 +77,17 @@ public class ServletControlador extends HttpServlet {
     @EJB
     private ProductoFacade productoFacade;
     @EJB
+    private OrdenFacade ordenFacade;
+    @EJB
     private ClienteFacade clienteFacade;
     @EJB
+    private OrdenProductoFacade ordenProductoFacade;
+    @EJB
+    private TipodepagoFacade tipoDePagoFacade;
+    ;
+    @EJB
     private LugarFacade lugarFacade;
+
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
 
@@ -98,6 +115,16 @@ public class ServletControlador extends HttpServlet {
         Categoria categoriaSeleccionada;
         List<ProductoCategoria> productosCategoria;
         Producto productoSeleccionado;
+        session.setAttribute("registroExitoso", null);
+        session.setAttribute("mensaje", null);
+        boolean sesionIniciada;
+        String correoElectronico = "";
+        if (session.getAttribute("loggedIn")==null)
+            sesionIniciada = false;
+        else
+            sesionIniciada=true;
+        if (session.getAttribute("correoElectronico") != null)
+            correoElectronico = session.getAttribute("correoElectronico").toString();
         if (userPath.equals("/categoria")) {
 
             String idCategoria = request.getQueryString();
@@ -115,116 +142,86 @@ public class ServletControlador extends HttpServlet {
                 session.setAttribute("productosCategoria", productosCategoria);
             }
 
-} else if (userPath.equals("/producto")) {
+        } else if (userPath.equals("/producto")) {
             String idProducto = request.getQueryString();
             if (idProducto != null) {
-                // get selected category
                 productoSeleccionado = productoFacade.find(Integer.parseInt(idProducto));
                 String urlActual = request.getRequestURL().toString();
-            urlActual = urlActual.replace("localhost:8081", "jshop.com");
-            urlActual = urlActual.replace("localhost:8080", "jshop.com");
-            System.out.println(urlActual);
-            System.out.println(urlActual+"?"+productoSeleccionado.getIdProducto());
-            session.setAttribute("urel", urlActual+"?"+productoSeleccionado.getIdProducto());
-            
-             categoriaSeleccionada = productoSeleccionado.getProductoCategoriaList().get(0).getCategoria();
+                urlActual = urlActual.replace("localhost:8081", "jshop.com");
+                urlActual = urlActual.replace("localhost:8080", "jshop.com");
 
-                // place selected category in session scope
+                categoriaSeleccionada = productoSeleccionado.getProductoCategoriaList().get(0).getCategoria();
+                session.setAttribute("urel", urlActual + "?" + productoSeleccionado.getIdProducto());
                 session.setAttribute("categoriaSeleccionada", categoriaSeleccionada);
-
-                // get all products for selected category
-//                Collection<Product> relatedProducts = selectedCategory.getProductCollection();
-                // place selected category in session scope
-               
                 session.setAttribute("productoSeleccionado", productoSeleccionado);
-//                session.setAttribute("relatedProducts", relatedProducts);
-
             }
         }
-            // if cart page is requested
-//        } else if (userPath.equals("/verCarrito")) {
-//
-//            String clear = request.getParameter("clear");
-//
-//            if ((clear != null) && clear.equals("true")) {
-//
-//                ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-//                cart.clear();
-//            }
-//
-//            userPath = "/cart";
-//
-//
-//            // if checkout page is requested
-//
-//        } else if (userPath.equals("/checkout")) {
-//
-//            ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-//
-//            // calculate total
-//            cart.calculateTotal(surcharge);
-//
-//            // forward to checkout page and switch to a secure channel
-//
-//
-//            // if user switches language
-//        } else if (userPath.equals("/product")) {
-//            String productId = request.getQueryString();
-//            if (productId != null) {
-//                // get selected category
-//                selectedProduct = productFacade.find(Integer.parseInt(productId));
-//                String urlActual = request.getRequestURL().toString();
-//            urlActual = urlActual.replace("localhost:8081", "jshop.com");
-//            System.out.println(urlActual);
-//            System.out.println(urlActual+"?"+selectedProduct.getId());
-//            session.setAttribute("urel", urlActual+"?"+selectedProduct.getId());
-//            
-//             selectedCategory = selectedProduct.getCategory();
-//
-//                // place selected category in session scope
-//                session.setAttribute("selectedCategory", selectedCategory);
-//
-//                // get all products for selected category
-//                Collection<Product> relatedProducts = selectedCategory.getProductCollection();
-//                // place selected category in session scope
-//               
-//                session.setAttribute("selectedProduct", selectedProduct);
-//                session.setAttribute("relatedProducts", relatedProducts);
-//
-//            }
-//        } else if (userPath.equals("/logout")) {
-//            session.setAttribute("loggedIn", null);
-//            userPath = "";
-//        }
-//        else if (userPath.equals("/activar")){
-//            String verification_code = request.getQueryString();
-//            System.out.println(verification_code);
-//            userPath="";
-//            if(customerFacade.activateAccount(verification_code)!=0){
-//                System.out.println("activado");
-//                session.setAttribute("messageBox", true);
-//            }else{
-//                session.setAttribute("messageBox", false);
-//                }
-//        }
-         else if (userPath.equals("/noRegistrado")) {
-            request.getSession().setAttribute("registrado", null);
-            Calendar date = Calendar.getInstance();
-            date.setTime(new Date());
-            Format f = new SimpleDateFormat("dd/MM/yyyy");
-            date.add(Calendar.YEAR, -18);
-            request.getSession().setAttribute("fechaPredeterminada", f.format(date.getTime()));
-//              String fechaPredeterminada= new S();
-
-            userPath = "/registrarme";
-        } else if (userPath.equals("/registrarme")){
-            List<Lugar> listaPais=lugarFacade.listarPaises();
-            List<Lugar> listaCiudad=null;
-            for (Lugar l:listaPais){
-                listaCiudad=l.getLugarList();
+        if (!sesionIniciada) {
+            if (userPath.equals("/registrarme")) {
+                request.getSession().setAttribute("registrado", null);
+                Calendar date = Calendar.getInstance();
+                date.setTime(new Date());
+                Format f = new SimpleDateFormat("dd/MM/yyyy");
+                date.add(Calendar.YEAR, -18);
+                request.getSession().setAttribute("fechaPredeterminada", f.format(date.getTime()));
+                session.setAttribute("listaPais", lugarFacade.listarPorTipo("Pais"));
+                session.setAttribute("listaEstado", lugarFacade.listarPorTipo("Estado"));
+                session.setAttribute("listaCiudad", lugarFacade.listarPorTipo("Ciudad"));
+            } else if (userPath.equals("/activar")) {
+                String verification_code = request.getQueryString();
+                System.out.println(verification_code);
+                userPath = "";
+                int idCliente = clienteFacade.activateAccount(verification_code);
+                if (idCliente != -1) {
+                    session.setAttribute("mensaje", "cuentaActivada");
+                    session.setAttribute("loggedIn", "Valido");
+                    session.setAttribute("correoElectronico", clienteFacade.find(idCliente).getCorreoElectronico());
+                } else {
+                    //TODO
+                    //Pagina de error.
+                }
+            }else if (userPath.equals("/solicitarEnlace")) {
+                if(!correoElectronico.equals("")){
+                clienteFacade.enviarCodActivacion(correoElectronico);
+                }
+                userPath = "";
             }
-           session.setAttribute("listaPais", listaPais);
+
+
+        } else { //Esta iniciada la sesion;
+            Cliente clienteEnSesion = clienteFacade.buscarPorCorreo(correoElectronico);
+            if (userPath.equals("/verPerfil")) {
+                String opcionPerfil = request.getQueryString();
+                if (opcionPerfil.equals("pedidos")) {
+                    session.setAttribute("ordenesCliente", clienteEnSesion.getOrdenList());
+                    System.out.println("entre orden");
+                } else if (opcionPerfil.equals("metodosDePago")) {
+                    session.setAttribute("metodosDePago", clienteEnSesion.getTipodepagoList());
+                } else if (opcionPerfil.equals("anadirTarjeta")) {
+                } else if (opcionPerfil.equals("miCuenta")) {
+                }
+                session.setAttribute("opcionPerfil", opcionPerfil);
+                userPath = "/perfil";
+            } else if (userPath.equals("/verOrden")) {
+                String idOrden = request.getQueryString();
+                Orden orden = ordenFacade.find(Integer.parseInt(idOrden));
+                float total = 0;
+                for (OrdenProducto op : orden.getOrdenProductoList()) {
+                    total += op.getPrecio() * op.getCantidad();
+                }
+                Format f = new SimpleDateFormat("hh:mm:ss a dd/MM/yyyy ");
+                String ipServidor = ListNets.getCurrentEnvironmentNetworkIp();
+                session.setAttribute("linkOrden", "http://" + ipServidor + ":8081/JShoP/qr?qrtext="
+                        + "http://" + ipServidor + ":8081/JShoP" + userPath + "?" + idOrden);
+                session.setAttribute("numeroDeOrden", idOrden);
+                session.setAttribute("totalOrden", total);
+                session.setAttribute("fechaDePedido", f.format(orden.getFechaCreacionOrden()));
+                session.setAttribute("direccionEntrega", orden.getDireccionEntrega());
+                session.setAttribute("listaProductoOrden", orden.getOrdenProductoList());
+                userPath = "/orden";
+            }
         }
+
         String url;
         // use RequestDispatcher to forward request internally
         if (!userPath.equals("")) {
@@ -255,55 +252,87 @@ public class ServletControlador extends HttpServlet {
             throws ServletException, IOException {
         String userPath = request.getServletPath();
         HttpSession session = request.getSession();
-        Cliente cliente = (Cliente) session.getAttribute("cliente");
-//        if (userPath.equals("/anadirAlCarrito")) {
-//
-//            userPath = "/categoria";
-//
-//        } else if (userPath.equals("/actualizarCarrito")) {
-//
-//            userPath = "/categoria";
-//        } else if (userPath.equals("/realizarPago")) {
-//            userPath = "/categoria";
-        if (userPath.equals("/iniciarSesion")) {
-            if (cliente == null) {
-
+        session.setAttribute("mensaje", null);
+        boolean sesionIniciada;
+        String correoElectronico = "";
+        if (session.getAttribute("loggedIn")==null)
+            sesionIniciada = false;
+        else
+            sesionIniciada=true;
+        if (session.getAttribute("correoElectronico") != null)
+            correoElectronico = session.getAttribute("correoElectronico").toString();
+        if (!sesionIniciada) {
+            if (userPath.equals("/iniciarSesion")) {
                 String email = request.getParameter("correo");
                 String pss = request.getParameter("pswd");
+                
                 int idCliente = clienteFacade.validarLogin(email, pss);
                 if (idCliente != 0) {
                     System.out.println("Validado");
-                    cliente = clienteFacade.find(idCliente);
-                    System.out.println(cliente.getCorreoElectronico());
+                    Cliente cliente = clienteFacade.find(idCliente);
+                    if (cliente.getCodActivacion() != null) {
+                        session.setAttribute("mensaje", "cuentaNoActivada");
+                        session.setAttribute("correoElectronico", cliente.getCorreoElectronico());
 
-                    userPath = "";
-                    session.setAttribute("loggedIn", "Yes");
-                    session.setAttribute("nombre", cliente.getCorreoElectronico());
-                    session.setAttribute("idCliente", cliente.getIdCliente());
+                    } else {
+                        session.setAttribute("loggedIn", "Valido");
+                        session.setAttribute("correoElectronico", cliente.getCorreoElectronico());
+                    }
                 } else {
-                    userPath = "/confirmation";
+                    session.setAttribute("loggedIn", null);
+                    session.setAttribute("correoElectronico", null);
+                    session.setAttribute("mensaje", "Invalido");
+
                 }
+                userPath = "";
+            } else if (userPath.equals("/noRegistrado")) {
+                System.out.println("holaaanoregistrado");
+                userPath = "/registrarme";
+            } else if (userPath.equals("/registrar")) {
+                int nroCedula = Integer.parseInt(request.getParameter("cedula"));
+                int fkLugar = Integer.parseInt(request.getParameter("ciudadSelect").toString());
+                String nombreCliente = request.getParameter("nombre");
+                String apellidoCliente = request.getParameter("apellido");
+                String correo = request.getParameter("correo");
+                String contrasena = request.getParameter("contrasena");
+                String fechaNacimiento = request.getParameter("fecha");
+                String direccionCliente = request.getParameter("direccion");
+                int codPostal = Integer.parseInt(request.getParameter("codPostal"));
+                System.out.println(nroCedula);
+                System.out.println(nombreCliente + apellidoCliente + correo + contrasena + fechaNacimiento + direccionCliente + codPostal);
+                boolean registroExitoso = false;
+                registroExitoso = clienteFacade.registrarCliente(nombreCliente, apellidoCliente, fechaNacimiento, nroCedula, correo, contrasena, direccionCliente, codPostal, lugarFacade.find(fkLugar));
+                if (registroExitoso) {
+                    session.setAttribute("mensaje", "registroExitoso");
+                }
+                userPath = "";
+
             }
-        } else if (userPath.equals("/cerrarSesion")) {
-            session.setAttribute("loggedIn", null);
-            userPath = "";
+        } else {//Existe sesion iniciada
+            if (userPath.equals("/cerrarSesion")) {
+                session.setAttribute("loggedIn", null);
+                session.setAttribute("correoElectronico", null);
+                session.setAttribute("cliente", null);
+                session.invalidate();
+                userPath = "";
 //
-        } else if (userPath.equals("/noRegistrado")) {
-            System.out.println("holaaanoregistrado");
-            userPath = "/registrarme";
-        } //else if (userPath.equals("/registrar")) {
-//            String name = request.getParameter("name");
-//                String email = request.getParameter("email");
-//                String phone = request.getParameter("phone");
-//                String address = request.getParameter("address");
-//                String password=request.getParameter("password");
-//                String cityRegion = request.getParameter("cityRegion");
-//                String ccNumber = request.getParameter("creditcard");
-//                customerFacade.registrar(name, phone, address, cityRegion, ccNumber, password, email);
-//            userPath = "";
-//
-//        }
-//
+            } else if (userPath.equals("/anadirTarjeta")) {
+                String marcacomercial = (String) request.getParameter("metodoSeleccionado");
+                Long numeroDeTarjeta = Long.parseLong(request.getParameter("numeroDeTarjeta"));
+                String fechaVencimiento = (String) request.getParameter("fechaVencimiento");
+                System.out.println(marcacomercial);
+                System.out.println(numeroDeTarjeta);
+                System.out.println(fechaVencimiento);
+                Cliente clienteAct = clienteFacade.buscarPorCorreo(correoElectronico);
+                int i = tipoDePagoFacade.registrarTipoDePago(numeroDeTarjeta, fechaVencimiento, marcacomercial, clienteAct);
+
+                clienteAct.getTipodepagoList().add(tipoDePagoFacade.find(i));
+                clienteFacade.edit(clienteAct);
+                session.setAttribute("metodosDePago", clienteAct.getTipodepagoList());
+                session.setAttribute("opcionPerfil", "metodosDePago");
+                userPath = "/perfil";
+            }
+        }
         String url;
         // use RequestDispatcher to forward request internally
         if (!userPath.equals("")) {

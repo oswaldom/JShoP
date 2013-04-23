@@ -5,6 +5,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -120,7 +121,13 @@ public class Lugar implements Serializable {
     public List<Lugar> getLugarList() {
         return lugarList;
     }
-
+public List<String> getLugarListNombre() {
+    List<String> myList = new ArrayList<String>();
+    for(int i=0;i<=lugarList.size();i++)  {
+        myList.add(lugarList.get(i).getNombreLugar());
+    }  
+    return myList;
+    }
     public void setLugarList(List<Lugar> lugarList) {
         this.lugarList = lugarList;
     }

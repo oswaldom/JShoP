@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Cliente;
 import org.expressme.openid.Association;
 import org.expressme.openid.Authentication;
 import org.expressme.openid.Endpoint;
@@ -43,17 +44,28 @@ public class ServletOpenId extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         manager = new OpenIdManager();
-        manager.setRealm("http://localhost:8081"); // change to your domain
+        manager.setRealm("http://localhost:8081");
         manager.setReturnTo("http://localhost:8081/JShoP/ServletOpenId");
-        //manager.setReturnTo("http://localhost:8081/OpenId/prueba.jsp"); // change to your servlet url
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String op = request.getParameter("op");
-
+        System.out.println("doget"+request.getRequestURL());
+        if (!request.getRequestURL().toString().contains("localhost")) {
+                String ip = ListNets.getCurrentEnvironmentNetworkIp();
+                String puerto = "8081";
+                String direccion = "http://" + ip + ":" + puerto;
+                System.out.println(direccion);
+                manager.setRealm(direccion);
+                manager.setReturnTo(direccion + "/JShoP/ServletOpenId");
+            }else{
+            manager.setRealm("http://localhost:8081");
+        manager.setReturnTo("http://localhost:8081/JShoP/ServletOpenId");
+        }
         if (op == null) { //op viene en nulo cuando ya has iniciado sesion en google desde esa pc con alguna cuenta
+            System.out.println("opnull"+request.getRequestURL());
             System.out.println("entre1");
             checkNonce(request.getParameter("openid.response_nonce"));
 
@@ -69,18 +81,39 @@ public class ServletOpenId extends HttpServlet {
             String identity = authentication.getIdentity();
             System.out.println(identity);
             String email = authentication.getEmail();
-            if (clienteFacade.validarCorreo(email) != 0) {
+            int idCliente = clienteFacade.validarCorreo(email);
+            if (idCliente != 0) {
+                Cliente cliente=clienteFacade.find(idCliente);
                 System.out.println(email);
                 System.out.println(authentication.getFullname());
-                //si aki llamas al metodo show authentication muestras identidad y correo en un html creado desde ese metodo, ve el metodo abajo
-                // TODO: create user if not exist in database:
                 response.sendRedirect("../JShoP/index.jsp");
-                request.getSession().setAttribute("loggedIn", "Yes");
-                request.getSession().setAttribute("nombre", email);
+                if (cliente.getCodActivacion()!=null){
+                        request.getSession().setAttribute("mensaje", "cuentaNoActivada");
+                        request.getSession().setAttribute("correoElectronico", cliente.getCorreoElectronico());
+                        request.getSession().setAttribute("loggedIn", null);
+                    } else{
+                         System.out.println(cliente.getCorreoElectronico());
+                         
+                    request.getSession().setAttribute("loggedIn", "Valido");
+                    request.getSession().setAttribute("correoElectronico", cliente.getCorreoElectronico());
+                    }
                 
+
+
             } else {
-                request.getSession().setAttribute("registrado", "No");
-                request.getSession().setAttribute("nombre", email);
+                request.getSession().setAttribute("mensaje", "noRegistrado");
+                request.getSession().setAttribute("correoElectronico", email);
+                request.getSession().setAttribute("loggedIn", null);
+                Cliente cliente = new Cliente();
+                String nombreCliente = authentication.getFirstname();
+                String apellidoCliente = authentication.getLastname();
+                String correoElectronico = authentication.getEmail();
+
+                cliente.setApellidoCliente(apellidoCliente);
+                cliente.setNombreCliente(nombreCliente);
+                cliente.setCorreoElectronico(correoElectronico);
+                request.getSession().setAttribute("clienteOpenId", cliente);
+                request.getSession().setAttribute("param.nombre", nombreCliente);
                 response.sendRedirect("../JShoP/index.jsp");
             }
             //Aki se redirecciona mano
@@ -93,7 +126,19 @@ public class ServletOpenId extends HttpServlet {
             request.getSession().setAttribute(ATTR_ALIAS, endpoint.getAlias());
             String url = manager.getAuthenticationUrl(endpoint, association);
             response.sendRedirect(url); //Este lleva a la interfaz de google donde se autentica
-
+            System.out.println("Googleop"+request.getRequestURL());
+            if (!request.getRequestURL().toString().contains("localhost")) {
+                String ip = ListNets.getCurrentEnvironmentNetworkIp();
+                String puerto = "8081";
+                String direccion = "http://" + ip + ":" + puerto;
+                System.out.println(direccion);
+                manager.setRealm(direccion);
+                manager.setReturnTo(direccion + "/JShoP/ServletOpenId");
+            }else{
+                manager.setRealm("http://localhost:8081");
+        manager.setReturnTo("http://localhost:8081/JShoP/ServletOpenId");
+        
+            }
         } else {
             throw new ServletException("Bad parameter op=" + op);
         }
@@ -127,6 +172,7 @@ public class ServletOpenId extends HttpServlet {
         storeNonce(nonce, nonceTime + TWO_HOUR);
     }
 
+    
     boolean isNonceExist(String nonce) {
         // TODO: check if nonce is exist in database:
         return false;

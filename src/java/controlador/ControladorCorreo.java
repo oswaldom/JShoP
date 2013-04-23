@@ -140,15 +140,40 @@ public class ControladorCorreo
             MimeMessage message = new MimeMessage(session);
             
             message.setFrom(new InternetAddress(usuario));
+            message.setHeader("ss", "sdasdasdasd");
             message.addRecipient(
                 Message.RecipientType.TO,
                 new InternetAddress(email));
             message.setSubject("Activación de cuenta JShoP");
             Transport protocolo = session.getTransport("smtp");
             protocolo.connect(usuario, contrasena);
+            String ip=ListNets.getCurrentEnvironmentNetworkIp();
+            String puerto="8081";
             String mensaje="<p> Por favor active su cuenta haciendo click en el siguiete vinculo</p>"
-                    + "<a href=\"http://localhost:8081/JShoP/activar?"
+                    + "<a href=\"http://"+ip+":"+puerto+"/JShoP/activar?"
                     + codActivacion+"\">Activar cuenta</a>";
+            message.setContent(mensaje, "text/html; charset=utf-8");
+            
+            protocolo.sendMessage(message, message.getAllRecipients());
+            
+            // Cierre.
+          
+            protocolo.close();
+    }
+    public  void enviarInfoModificaciones(String email,String tipo) throws MessagingException{
+        // Construimos el mensaje
+        
+            MimeMessage message = new MimeMessage(session);
+            
+            message.setFrom(new InternetAddress(usuario));
+            message.addRecipient(
+                Message.RecipientType.TO,
+                new InternetAddress(email));
+            message.setSubject("Modificaciones en su cuenta");
+            Transport protocolo = session.getTransport("smtp");
+            protocolo.connect(usuario, contrasena);
+            String mensaje="<p> Saludos, hemos registrado un nuevo método de pago.</p>"
+                    + "<p> Ahora, puede proceder a realizar compras. Gracias por comprar en JShoP e-Commerce</p>";
             message.setContent(mensaje, "text/html; charset=utf-8");
             
             protocolo.sendMessage(message, message.getAllRecipients());

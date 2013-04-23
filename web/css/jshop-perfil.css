@@ -1,0 +1,26 @@
+#menuPerfil{
+    height: 540px;
+    width: 200px;
+    background-color: graytext;
+    float: left;
+}
+#columnaDerechaPerfil{
+    height: 540px;
+    width: 780px;
+    /*background-color: #d3ede8;*/
+    float: right;
+}
+.perfilBoton {
+    margin: 15px;
+    padding: 13px;
+    display: block;
+    background-color: #d3ede8;
+}
+.tarjetaDeCredito {
+    height: 300px;
+    width: 300px;
+    text-align: right;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    background-color: #d3ede8;
+}

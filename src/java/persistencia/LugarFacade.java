@@ -31,9 +31,9 @@ public class LugarFacade extends AbstractFacade<Lugar> {
         super(Lugar.class);
     }
 
-    public List<Lugar> listarPaises() {
+    public List<Lugar> listarPorTipo(String tipo){
         Query q = em.createNamedQuery("Lugar.buscarPorTipoLugar")
-                .setParameter("tipoLugar", "Pais");
+                .setParameter("tipoLugar", tipo);
         try {
             return q.getResultList();
         } catch (NoResultException e) {

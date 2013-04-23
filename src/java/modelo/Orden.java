@@ -66,6 +66,11 @@ public class Orden implements Serializable {
     @Column(name = "fecha_entregada")
     @Temporal(TemporalType.DATE)
     private Date fechaEntregada;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "direccion_entrega")
+    private String direccionEntrega;
     @JoinColumn(name = "fk_lugar", referencedColumnName = "id_lugar")
     @ManyToOne(optional = false)
     private Lugar fkLugar;
@@ -135,6 +140,14 @@ public class Orden implements Serializable {
 
     public void setFechaEntregada(Date fechaEntregada) {
         this.fechaEntregada = fechaEntregada;
+    }
+
+    public String getDireccionEntrega() {
+        return direccionEntrega;
+    }
+
+    public void setDireccionEntrega(String direccionEntrega) {
+        this.direccionEntrega = direccionEntrega;
     }
 
     public Lugar getFkLugar() {

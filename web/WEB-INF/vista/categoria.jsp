@@ -1,9 +1,3 @@
-<%--
-    Document   : category
-    Created on : May 21, 2010, 12:20:23 AM
-    Author     : tgiunipero
---%>
-
 
 <div id="categoryLeftColumn">
 

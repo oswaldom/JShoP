@@ -4,9 +4,26 @@
         <servlet-name>ServletOpenId</servlet-name>
         <servlet-class>controlador.ServletOpenId</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Servlet QR</servlet-name>
+        <servlet-class>controlador.ServletQRCodigo</servlet-class>
+    </servlet>
+    <servlet>
+        <description>Generar PDF de facturas, recibos, etiquetas para empleados.</description>
+        <servlet-name>GenerarPDF</servlet-name>
+        <servlet-class>controlador.GenerarPDF</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletOpenId</servlet-name>
         <url-pattern>/ServletOpenId</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Servlet QR</servlet-name>
+        <url-pattern>/qr</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GenerarPDF</servlet-name>
+        <url-pattern>/factura</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

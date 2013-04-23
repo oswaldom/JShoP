@@ -1,4 +1,4 @@
-<div id="footer">
+<%--<div id="footer">
                 <br>
                 <hr id="footerDivider">
                 <p id="footerText" class="reallySmallText">
@@ -7,7 +7,7 @@
                     <a href="<c:url value='#'/>">Contacto</a>
                     &nbsp;&nbsp;&copy;&nbsp;&nbsp;
                     2013</p>
-            </div>
+            </div>--%>
         </div>
     </body>
 </html>

@@ -58,6 +58,7 @@ public class Tipodepago implements Serializable {
     @JoinColumn(name = "fk_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
     private Cliente fkCliente;
+    
 
     public Tipodepago() {
     }
