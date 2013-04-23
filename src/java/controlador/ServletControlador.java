@@ -110,9 +110,9 @@ public class ServletControlador extends HttpServlet {
             throws ServletException, IOException {
 
         String userPath = request.getServletPath();
-        HttpSession session = request.getSession();
-        System.out.println(userPath);
+        HttpSession session = request.getSession();    
         Categoria categoriaSeleccionada;
+        Categoria categoriaSearch;
         List<ProductoCategoria> productosCategoria;
         Producto productoSeleccionado;
         session.setAttribute("registroExitoso", null);
@@ -135,11 +135,7 @@ public class ServletControlador extends HttpServlet {
 
                 // place selected category in session scope
                 session.setAttribute("categoriaSeleccionada", categoriaSeleccionada);
-
-                // get all products for selected category
-                productosCategoria = categoriaSeleccionada.getProductoCategoriaList();
-//                // place category products in session scope
-                session.setAttribute("productosCategoria", productosCategoria);
+                
             }
 
         } else if (userPath.equals("/producto")) {
@@ -155,6 +151,33 @@ public class ServletControlador extends HttpServlet {
                 session.setAttribute("categoriaSeleccionada", categoriaSeleccionada);
                 session.setAttribute("productoSeleccionado", productoSeleccionado);
             }
+            
+            
+        } 
+        
+        else if (userPath.equals("/buscar")) {
+            
+            String idBusqueda = request.getParameter("idCategoria");
+            String busqueda = request.getParameter("q");
+            String mensaje = null;
+            
+            if (!idBusqueda.equals("")) {
+                
+                categoriaSearch = categoriaFacade.find(Integer.parseInt(idBusqueda));
+                mensaje = "Productos de " + categoriaSearch.getNombreCategoria();
+                
+                session.setAttribute("categoriaSearch", categoriaSearch);
+    
+            }
+            else {
+                categoriaSearch = null;
+                session.setAttribute("categorias", categoriaFacade.findAll());
+                mensaje = "Productos de todas las categorias";
+            }
+            
+            session.setAttribute("busqueda", busqueda);
+            session.setAttribute("mensaje", mensaje);
+    
         }
         if (!sesionIniciada) {
             if (userPath.equals("/registrarme")) {
@@ -231,6 +254,7 @@ public class ServletControlador extends HttpServlet {
         }
         try {
             request.getRequestDispatcher(url).forward(request, response);
+            session.setAttribute("actualURL", userPath);
 
         } catch (Exception ex) {
             ex.printStackTrace();

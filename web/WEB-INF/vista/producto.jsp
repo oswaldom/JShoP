@@ -30,10 +30,10 @@
     <div class="productDetail">   
         <div class="productImage">
             <td>
-                <%--<img src="${initParam.productImagePath}${selectedProduct.name}.png"
-                     alt="${selectedProduct.name}"
+                <img src="${initParam.productImagePath}${productoSeleccionado.idProducto}.jpg"
+                     alt="${productoSeleccionado.nombreProducto}"
                      height="250"
-                     width="250">--%>
+                     width="250">
             </td>
         </div>
         <div class="productDescription">

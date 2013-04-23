@@ -4,6 +4,7 @@
  */
 package persistencia;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,4 +28,10 @@ public class OrdenFacade extends AbstractFacade<Orden> {
         super(Orden.class);
     }
     
+    // in this implementation, there is only one order per customer
+    // the data model however allows for multiple orders per customer
+    @RolesAllowed("jshopAdmin")
+    public Orden findByCustomer(Object cliente) {
+        return (Orden) em.createNamedQuery("Orden.findByCustomer").setParameter("cliente", cliente).getSingleResult();
+    }
 }

@@ -559,3 +559,152 @@ height: 32px}
 #totalCellRight { padding: 0 20px }
 
 #dateProcessedRow { padding: 2px 0 10px 20px }
+
+/*CSS administrador*/
+
+#loginBox {
+    width: 300px;
+    margin: 0 auto;
+    border: solid 1px #f5eabe;
+    background-color: #f5eabe;
+    border-radius: 4px;
+}
+
+#adminMenu {
+    float: left;
+    width: 180px;
+    margin: 25px 5px 0 30px;
+    border: solid 1px #f5eabe;
+    background-color: #f5eabe;
+    border-radius: 4px;
+}
+
+#adminMenu p { margin-left: 15px }
+
+#adminTable {
+    width: 580px;
+    float: left;
+    background-color: #edf8f7;
+}
+
+.alignLeft { text-align: left }
+
+.selectedRow {
+    background-color: #c3e3e0;
+    cursor: pointer;
+}
+
+.noDecoration { text-decoration: none }
+
+.rigidWidth { width:200px }
+
+.embedded {
+    margin: 0;
+    border: none;
+}
+
+.create_btn{
+	text-decoration:none;
+	text-shadow:1px 1px 0 #000;
+	-moz-text-shadow:1px 1px 0 #000;
+	-webkit-text-shadow:1px 1px 0 #000;
+	color:#fff;
+	font-weight:bold;
+	font-size:13px;
+
+	background:#3d3d3d;
+	float:right;
+        /*margin-left: 50px;*/
+	height:25px;
+        padding: 5px 5px 5px 0px;
+}
+
+.create_btn:hover{
+    background:#656565;
+}
+
+.create_btn span{
+    color:#fff;
+    padding:0 10px 0 10px;
+    text-align:center;
+    position: relative;
+    top: 4px;
+    left: 1px;
+}
+
+/*product_form style*/
+
+#container {
+    display: none;
+    float:right;
+    text-align: left;
+    margin:10px;
+}
+
+#product_form {
+    position: relative;
+    width: 500px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    -webkit-box-shadow: inset 0px -2px 1px #888, -3px 3px 4px #ccc;
+    border-radius: 5px;
+    padding: 1px 20px 60px 20px;
+}
+
+fieldset { 
+    padding:0; 
+    border:0; 
+    margin-top:25px; 
+}
+
+.close_btn {
+    float:right;
+    padding-top: 10px; 
+}
+
+.insert_form_text {
+    border: 1px solid cornflowerblue;
+    border-radius: 3px;
+    height: 32px;
+    width: 205px;
+    padding-left: 10px;
+    margin-left: 10px;
+    font-family: Georgia, times, sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    color: cornflowerblue;
+}
+
+#textArea {
+    width: 455px;
+    height: 90px;
+    padding-right: 10px;
+}
+
+#input_btn {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 15px;
+    height: 32px;
+    width: 80px;
+    font-size: 14px;
+    color: #fff;
+    line-height: 32px;
+    text-align: center;
+    text-shadow: 1px 1px 0px #888;
+    border-width: 0;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #bbb;
+    background: -webkit-gradient(linear, left top, left bottom, from(#8FBFF7), to(#4678D7));
+    -webkit-box-shadow: inset 0px -1px 1px #888, 0px 2px 2px #ccc;
+    box-shadow: inset 0px -1px 1px #888, 0px 2px 2px #ccc;
+    cursor: pointer;
+}
+
+#input_btn:hover {
+    background: -webkit-gradient(linear, left top, left bottom, from(#4678D7), to(#8FBFF7));
+}

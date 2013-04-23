@@ -9,38 +9,84 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       
+
+        <script src="js/jquery-1.4.2.js" type="text/javascript"></script>
+        <script src="js/jquery-ui-1.8.4.custom.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"  charset="utf-8"></script> 
+        
+        
         <link rel="shortcut icon" href="img/favicon.ico">
         <link rel="stylesheet" type="text/css" href="css/jshop-style.css">
         <link rel="stylesheet" type="text/css" href="css/jshop-style2.css">
         <link rel="stylesheet" type="text/css" href="css/jshop-buttons.css">
         <link rel="stylesheet" type="text/css" href="css/jshop-perfil.css">
         <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" media="screen" charset="utf-8"/>
-        <link rel="stylesheet" type="text/css" href="css/messi.css">
-        <link rel="stylesheet" href="css/table-style.css" />
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/messi.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jqautocomplete.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    
         <script src="js/messi.js" type="text/javascript"></script>
-        <script type="text/javascript" src="js/jquery1.4.2.js"></script>
-        <script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
-        <script type="text/javascript" src="js/jquery-1.7.2.min.js"  charset="utf-8"></script>        
-        <script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js" charset="utf-8"></script>       
-        <script type="text/javascript" src="js/jquery.chained.js"  charset="utf-8"></script>
-        <script type="text/javascript" src="js/table-script.js"></script>
-
-        <!-- <msdropdown> -->
-        <link rel="stylesheet" type="text/css" href="css/msdropdown/dd.css" />
-        <script src="js/msdropdown/jquery.dd.js"></script>
-        <!-- </msdropdown> 
         
-        <link rel="stylesheet" type="text/css" href="css/msdropdown/skin2.css" />
-        <link rel="stylesheet" type="text/css" href="css/msdropdown/flags.css" />-->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js">
+        </script>
+        
+        <link rel="stylesheet" href="css/Base.css" type="text/css">
+        <link rel="stylesheet" href="css/BreadCrumb.css" type="text/css">
+        <script src="js/jquery.easing.1.3.js" type="text/javascript" language="JavaScript">
+        </script>
+        <script src="js/jquery.jBreadCrumb.1.1.js" type="text/javascript" language="JavaScript">
+        </script>
+        
+        <script type="text/javascript">
+            jQuery(document).ready(function()
+            {
+                jQuery("#breadCrumb3").jBreadCrumb();
+            });
+        </script>
+        
+             
+        <script type="text/javascript" src="js/jqautocomplete.js"></script>
+        <script type="text/javascript" src="js/dropdownList.js"></script>
+        
+        
         <title>JShoP, JSP e-Commerce</title>
     </head>
     <body>
         <div id="main">
             <div id="header_wrapper">
-                <div id="header">
-                    <c:if test="${mensaje eq 'noRegistrado'}">
+                
+                <a href="<c:url value='/'/>">
+                        <img src="img/logo.png" id="logo" alt="JShoP logo">
+                    </a>
+                
+                <div id='search-box'>
+                    
+                    <form action="buscar" id="search-form" method="get" target="_top">
+                        <select onchange="document.getElementById('idCategoria').value=this.value;">
+                            <option value="" selected>Todas las categorias</option>
+                            <c:forEach var="categoria" items="${categorias}">
+                                <c:if test="${categoria.categoriaList.isEmpty()}">
+                                    <option value="<c:out value="${categoria.idCategoria}"></c:out>">
+                                        <c:out value="${categoria.nombreCategoria}"></c:out></option>
+                                </c:if>
+                            </c:forEach>
+                                    
+                        </select>       
+                        <input value="" type="hidden" name="idCategoria" id="idCategoria"/>
+                        <input id='search-text' name='q' placeholder='Buscar producto...' type='text'/>
+                        <button id='search-button' type='submit'><span>Search</span></button>
+                        
+                    </form>
+                
+                    <script>
+                        $("#search-text").autocomplete("getdata.jsp");
+                    </script>
+      
+                </div>  
+                        
+                        <c:if test="${!empty registrado}">
                         <script>new Messi('<p>No se ha podido autenticar con Google</p>\n\
                                     <p><strong>${correoElectronico}</strong> no se encuentra registrado.</p> \n\
                                     <p>Debe registrarse para iniciar sesion</p>',
@@ -52,56 +98,12 @@
                                         }});
                         </script>    
                     </c:if>
-                    <c:if test="${mensaje eq 'registroExitoso'}">
-                        <script>new Messi('<p>¡Registro exitoso!</p>\n\
-                                    <p><strong>${param.nombre}</strong> <strong>${param.apellido}</strong> felicidades, hemos procesado su registro exitosamente</p> \n\
-                                    <p>Sin embargo, debe proceder a activar su cuenta, revise su correo electrónico:</p>\n\
-                                    <p><strong>${param.correo}</strong></p>'
-                                    ,
-                                    {title: '¡Registro exitoso!', titleClass: 'success', modal: true, buttons: [{id: 0, label: 'Aceptar'}]
-                                    })
-
-                        </script>    
-                    </c:if>
-                    <c:if test="${mensaje eq 'cuentaActivada'}">
-                        <script>new Messi('<p>Felicidades, su cuenta ha sido activada</p>\n\
-                                    <p><strong>${correoElectronico}</strong> ahora puede iniciar sesion.</p>',
-                                    {title: 'Cuenta activada', titleClass: 'success', modal: true, buttons: [{id: 0, label: 'Ok'}],
-                                    })
-
-                        </script>    
-                    </c:if>
-                    <c:if test="${mensaje eq 'cuentaNoActivada'}">
-                        <script>new Messi('<p>No se ha podido iniciar sesión</p>\n\
-                                    <p>Su cuenta <strong>${correoElectronico}</strong> no ha sido activada.</p> \n\
-                                    <p>revise su correo electronico y active su cuenta para iniciar sesión.</p>\n\
-                                    <p>Si lo desea puede solicitar su enlace de activación.</p>',
-                                    {title: 'No se pudo iniciar sesión', titleClass: 'error', modal: true, buttons: [{id: 0, label: 'Solicitar enlace', val: 'solicitarEnlace', class: 'btn-success'}, {id: 1, label: 'Cerrar', val: '#'}],
-                                        callback: function(val) {
-                                            if (val === "solicitarEnlace") {
-                                                document.location.href = val;
-                                            }
-                                        }});
-                        </script>    
-                    </c:if>
-                    <c:if test="${mensaje eq 'Invalido'}">
-                        <script>new Messi('<p>No se ha podido iniciar sesión</p>\n\
-                                    <p>Contraseña o correo electronico invalido(s)</p> \n\
-                                    <p>Intente de nuevamente, de no tener usuario, registrese</p>',
-                                    {title: 'No se pudo iniciar sesión', titleClass: 'error', modal: true, buttons: [{id: 0, label: 'Registrarme', val: 'registrarme', class: 'btn-success'}, {id: 1, label: 'Cerrar', val: '#'}],
-                                        callback: function(val) {
-                                            if (val === "registrarme") {
-                                                document.location.href = val;
-                                            }
-                                        }});
-                        </script>   
-                    </c:if>
+                   
+                
+                <div id="header">
                     
-                    <c:if test="${(empty loggedIn)}">
-                        <a href="#" class="login_btn">
-                                        <button class="btn btn-info" type="button" >Iniciar sesión</button></a>
-                        <a style="margin-top: 11px; margin-right: 10px; float:right;" href="<c:url value='registrarme'/>">
-                            <button class="btn btn-success">Registrese</button></a>
+                    <c:if test="${empty loggedIn}">
+                        <a href="#" class="login_btn"><span>Inicie sesión</span><div class="triangle"></div></a>
                         <div id="login_box">
                             <div id="tab"><a href="..." class="login_btn"><button class="btn btn-info" type="button" >Iniciar sesión</button></a></div>
 
@@ -161,22 +163,18 @@
                           </a>
                     </c:if>
 
-                    <%-- shopping cart widget --%>
-                    <div class="headerWidget" id="viewCart">
+                    <c:if test="${!empty loggedIn}">
+                        <a href="#" class="login_btn"><span>${nombre}</span><div class="triangle"></div></a>
+                        <div id="login_box">
+                            <div id="tab"><a href="..." class="login_btn"><span>${nombre}</span><div class="triangle"></div></a></div>
+                         
+                            <div id="login_box_content">
 
                         <img src="img/cart.gif" alt="shopping cart icon" id="cart">
 
-                        <%-- If 'numberOfItems' property doesn't exist, or if number of items
-                             in cart is 0, output '0', otherwise output 'numberOfItems' --%>
-                        <span class="horizontalMargin">
-                            <c:choose>
-                                <c:when test="${cart.numberOfItems == null}">
-                                    0
-                                </c:when>
-                                <c:otherwise>
-                                    ${cart.numberOfItems}
-                                </c:otherwise>
-                            </c:choose>
+                                <form action="<c:url value='verPerfil?${idCliente}'/>" method="post">
+                                    <input class="profile_btn" type="submit" value="Ver perfil" style="cursor:pointer"/>
+                                </form>
 
                             <%-- Handle singular/plural forms of 'item' --%>
                             <c:choose>
@@ -202,8 +200,18 @@
                 </c:if>
 
 
-
-                <a href="<c:url value='/'/>">
-                    <img src="img/logo.png" id="logo" alt="JShoP logo">
-                </a>
-            </div>
+                    <div class="breadCrumbHolder module">
+                        <div id="breadCrumb3" class="breadCrumb module">
+                            <ul>
+                                <li>
+                                    <a href="/JShoP">Home</a>
+                                </li>
+                                <li>
+                                    JShoP
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                        
+                </div>
+                        

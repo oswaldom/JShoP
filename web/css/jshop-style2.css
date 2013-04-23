@@ -34,7 +34,6 @@ h2 {
 	font-weight:bold;
 	font-size:13px;
 	margin-top:11px;
-	background: #0074cc;
 	float:right;
 	height:32px;
 }
@@ -312,4 +311,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	padding-left:5px;
         border-right: #a9a9a9 1px solid;
    -webkit-appearance: none;
+   background: url(../img/caret.png) no-repeat 98% 50%;
+  cursor: pointer;
    }
