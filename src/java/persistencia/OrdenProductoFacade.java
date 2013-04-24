@@ -4,6 +4,7 @@
  */
 package persistencia;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +26,11 @@ public class OrdenProductoFacade extends AbstractFacade<OrdenProducto> {
 
     public OrdenProductoFacade() {
         super(OrdenProducto.class);
+    }
+    
+    // creado manualmente.
+    public List<OrdenProducto> findByIdOrden(Object id) {
+        return em.createNamedQuery("OrdenProducto.findByPkFkOrden").setParameter("pkFkOrden", id).getResultList();
     }
     
 }

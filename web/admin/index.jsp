@@ -148,18 +148,18 @@
         <c:forEach var="producto" items="${productoList}" varStatus="iter">
 
             <tr class="${((iter.index % 2) == 1) ? 'lightBlue' : 'white'} tableRow"
-                onclick="document.location.href='productoRecord?${producto.idProducto}';">
+                onclick="document.location.href='producto?${producto.idProducto}';">
 
               <%-- Below anchor tags are provided in case JavaScript is disabled --%>
-                <td><a href="productoRecord?${producto.idProducto}" class="noDecoration">${producto.idProducto}</a></td>
-                <td><a href="productoRecord?${producto.idProducto}" class="noDecoration">${producto.nombreProducto}</a></td>
-                <td><a href="productoRecord?${producto.idProducto}" class="noDecoration">
+                <td><a href="producto?${producto.idProducto}" class="noDecoration">${producto.idProducto}</a></td>
+                <td><a href="producto?${producto.idProducto}" class="noDecoration">${producto.nombreProducto}</a></td>
+                <td><a href="producto?${producto.idProducto}" class="noDecoration">
                         <fmt:formatNumber type="currency"
                                           currencySymbol="Bs.F"
                                           value="${producto.precioProducto}"/>
                     </a>
                 </td>
-                <td><a href="productoRecord?${producto.idProducto}" class="noDecoration">${producto.descripcionProducto}</a></td>
+                <td><a href="producto?${producto.idProducto}" class="noDecoration">${producto.descripcionProducto}</a></td>
             
             </tr>
 

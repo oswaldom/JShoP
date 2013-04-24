@@ -1,13 +1,9 @@
 #search-box {
-    position: absolute;
-    margin: 0;
+    position: relative;
+    margin: 1px auto;
     width: 550px;
     z-index: 200;
-    top: 26px;
-    left: 0;
-    right: 30px;
-    margin-left: auto;
-    margin-right: auto;
+    left: 40px;
 }
 
 #search-text {
@@ -40,7 +36,9 @@
     -moz-box-shadow: inset 2px 2px 4px #ccc;
     box-shadow: inset 2px 2px 4px #ccc;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    width: 100%;
+    left: -85px;
 }
 
 #categorias_box {

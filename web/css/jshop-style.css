@@ -1,10 +1,8 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    width: 1000px;
     text-align: center;
     margin: 20px auto;
-    color: #444;
-    background-color:#FFF;
+    background-image: url(../img/triangles.png);
 }
 
 hr {
@@ -39,11 +37,14 @@ label { line-height: 30px }
 
 
 /* general styles */
-#main { background: white }
+#main { 
+    background: white;
+    width:1000px;
+    margin:0px auto;
+    text-align:left;
+}
 
 #singleColumn {
-    float: right;
-    margin: 20px 30px;
     text-align: left;
 }
 
@@ -72,8 +73,8 @@ label { line-height: 30px }
 /* styles for elements contained in the header, i.e.,
    shopping cart widget, language toggle, and logo */
 #header {
-    width: 1000px;
     height: 65px;
+    background: -webkit-gradient(linear, 0 0%, 0 100%, from(#FFFFFF), to(#aaa))
 }
 .loginBox {
     text-align: center;
@@ -186,7 +187,7 @@ label { line-height: 30px }
 
 #logo {
     float: left;
-    margin-left: 30px;
+    margin-left: -50px;
     margin-top: -20px;
 }
 
@@ -201,8 +202,6 @@ label { line-height: 30px }
 
 #widgetBar {
     height: 50px;
-    width: 850px;
-    float: right;
 }
 
 #cart {
@@ -217,15 +216,13 @@ label { line-height: 30px }
 
 #viewCart {
     text-align: left;
-    width: 210px;
+    margin: 0px;
+    font-size: 18px;
 }
 
 .headerWidget {
-    width: 194px;
-    margin: 20px 0;
-    font-size: small;
     float: right;
-    line-height: 25px;
+    margin: 9px 10px;
 }
 
 
@@ -248,7 +245,7 @@ label { line-height: 30px }
 /* index page styles */
 #indexLeftColumn {
     text-align: left;
-    width: 300px;
+    width: 250px;
     float: left;
     margin: 30px 0px 0px 0px;
 }
@@ -367,8 +364,6 @@ label { line-height: 30px }
 .productDetail {
     background-color: whitesmoke;
     margin-left: 10px;
-    height: 500px;
-    width: 770px;
 }
 .productText {
     line-height: 100%;

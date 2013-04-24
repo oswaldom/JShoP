@@ -4,25 +4,6 @@
     Author     : oswaldomaestra
 --%>
 
-<div id="indexLeftColumn">
-    
-    <c:forEach var="categoria" items="${categorias}">
-        
-        <c:if test="${categoria.fkCategoria == null}">
-        <div class="categoryBox">
-            <a href="<c:url value='categoria?${categoria.idCategoria}'/>">
-                <div class="categoryButton">${categoria.nombreCategoria}</div>
-                
-                <%--
-                <img src="${initParam.categoryImagePath}${category.name}.jpg"
-                     alt="${category.name}" class="categoryImage">
-                --%>
-            </a>
-        </div>
-            </c:if>
-    </c:forEach>
-  
-</div>
 
 <div id="indexRightColumn">
     

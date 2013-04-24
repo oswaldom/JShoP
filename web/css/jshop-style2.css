@@ -11,10 +11,7 @@
 	height:56px;
         border-radius: 2px;
 }
-#header {
-	margin:0px auto;
-	width:960px;
-}
+
 h1 {
 	float:left;
 	font-size:14px;
@@ -34,7 +31,7 @@ h2 {
 	color:#fff;
 	font-weight:bold;
 	font-size:13px;
-	margin:11px -13px 0px 0px;
+	margin-top: 7px;
         background: #4678D7;
 	float:right;
 	height:32px;
@@ -50,7 +47,7 @@ h2 {
 	color:#fff;
 	font-weight:bold;
 	font-size:13px;
-	margin-top: 11px;
+	margin-top: 7px;
         margin-right: 10px;
 	background:#3d3d3d;
 	float:right;
@@ -208,8 +205,7 @@ h2 {
 #login_box {
 	display:none;
 	position:absolute;
-	width:236px;
-	margin:0px 0 0 744px;
+	width:233px;
         z-index: 100;
 }
 #reg_box {
@@ -251,6 +247,7 @@ h2 {
 	width:236px;
         padding-bottom: 5px;
 }
+
 #reg_box_content {
 	background:#fff;
 	border-top-left-radius:5px;
@@ -283,7 +280,7 @@ h2 {
 	color:#fff;
 	font-weight:bold;
 	font-size:13px;
-        margin:9px 9px 9px 0;
+        margin:10px 10px 10px 10px;
         background: #62c462;
 	float:right;
 	height:32px;
@@ -376,4 +373,19 @@ h2 {
 	padding-left:10px;
         border-right: #a9a9a9 1px solid;
    -webkit-appearance: none;
-   }
+ }
+
+ #shoppingCart_box {
+    display:none;
+    position:absolute;
+    width:233px;
+    z-index: 1000;
+ }
+ 
+ #shoppingCart_box_content {
+    background: -webkit-gradient(linear, left top, left bottom, from(#8FBFF7), to(#4678D7));
+    -webkit-box-shadow: inset 0px -2px 1px #888, -3px 3px 4px #ccc;
+    border-radius: 5px;
+    float:left;
+    padding-bottom: 5px;
+}

@@ -5,29 +5,6 @@
 --%>
 
 
-<div id="categoryLeftColumn">
-
-    <c:forEach var="subCategoria" items="${categoriaSeleccionada.categoriaList}">
-        <div class="categoryBox">
-        <c:choose>
-            <c:when test="${subCategoria.nombreCategoria == categoriaSeleccionada.nombreCategoria}">
-                
-                <div class="categoryButton" id="selectedCategory">${subCategoria.nombreCategoria}</div>
-            
-            </c:when>
-                
-            <c:otherwise>
-                
-                <a href="<c:url value='categoria?${subCategoria.idCategoria}'/>">
-                    <div class="categoryButton">${subCategoria.nombreCategoria}</div>
-                </a>
-                         
-            </c:otherwise>
-        </c:choose>
-</div>
-    </c:forEach>
-
-</div>
 
 <div id="categoryRightColumn">
 

@@ -4,15 +4,15 @@
  */
 package controlador;
 
+import carritocompra.CarritoCompra;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -30,6 +30,7 @@ import persistencia.CategoriaFacade;
 import persistencia.ClienteFacade;
 import persistencia.LugarFacade;
 import persistencia.ProductoFacade;
+import validate.Validator;
 
 /**
  *
@@ -50,7 +51,12 @@ import persistencia.ProductoFacade;
     "/noRegistrado",
     "/registrar",
     "/registrarme",
-    "/buscar"
+    "/buscar",
+    "/agregarAlCarrito",
+    "/verCarrito",
+    "/actualizarCarrito",
+    "/checkout",
+    "/realizarCompra",
 })
 public class ServletControlador extends HttpServlet {
 
@@ -64,6 +70,8 @@ public class ServletControlador extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private String recargo;
+    
     @EJB
     private CategoriaFacade categoriaFacade;
     @EJB
@@ -72,10 +80,20 @@ public class ServletControlador extends HttpServlet {
     private ClienteFacade clienteFacade;
     @EJB
     private LugarFacade lugarFacade;
+    @EJB
+    private ManejadorOrden manejadorOrden;
+    
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
 
         super.init(servletConfig);
+        
+        // Inicializar el servlet con informacion ya configurada.
+        recargo = servletConfig.getServletContext().getInitParameter("recargoPorEntrega");
+        
+        System.out.println("recargo: " + recargo);
+        
+        
         getServletContext().setAttribute("categorias", categoriaFacade.findAll());
     }
 
@@ -168,72 +186,38 @@ public class ServletControlador extends HttpServlet {
             session.setAttribute("mensaje", mensaje);
     
         }
-            // if cart page is requested
-//        } else if (userPath.equals("/verCarrito")) {
-//
-//            String clear = request.getParameter("clear");
-//
-//            if ((clear != null) && clear.equals("true")) {
-//
-//                ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-//                cart.clear();
-//            }
-//
-//            userPath = "/cart";
-//
-//
-//            // if checkout page is requested
-//
-//        } else if (userPath.equals("/checkout")) {
-//
-//            ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-//
-//            // calculate total
-//            cart.calculateTotal(surcharge);
-//
-//            // forward to checkout page and switch to a secure channel
-//
-//
-//            // if user switches language
-//        } else if (userPath.equals("/product")) {
-//            String productId = request.getQueryString();
-//            if (productId != null) {
-//                // get selected category
-//                selectedProduct = productFacade.find(Integer.parseInt(productId));
-//                String urlActual = request.getRequestURL().toString();
-//            urlActual = urlActual.replace("localhost:8081", "jshop.com");
-//            System.out.println(urlActual);
-//            System.out.println(urlActual+"?"+selectedProduct.getId());
-//            session.setAttribute("urel", urlActual+"?"+selectedProduct.getId());
-//            
-//             selectedCategory = selectedProduct.getCategory();
-//
-//                // place selected category in session scope
-//                session.setAttribute("selectedCategory", selectedCategory);
-//
-//                // get all products for selected category
-//                Collection<Product> relatedProducts = selectedCategory.getProductCollection();
-//                // place selected category in session scope
-//               
-//                session.setAttribute("selectedProduct", selectedProduct);
-//                session.setAttribute("relatedProducts", relatedProducts);
-//
-//            }
-//        } else if (userPath.equals("/logout")) {
-//            session.setAttribute("loggedIn", null);
-//            userPath = "";
-//        }
-//        else if (userPath.equals("/activar")){
-//            String verification_code = request.getQueryString();
-//            System.out.println(verification_code);
-//            userPath="";
-//            if(customerFacade.activateAccount(verification_code)!=0){
-//                System.out.println("activado");
-//                session.setAttribute("messageBox", true);
-//            }else{
-//                session.setAttribute("messageBox", false);
-//                }
-//        }
+        
+        //if cart page is requested
+        else if (userPath.equals("/verCarrito")) {
+
+            String clear = request.getParameter("clear");
+
+            if ((clear != null) && clear.equals("true")) {
+
+                CarritoCompra carrito = (CarritoCompra) session.getAttribute("carrito");
+                carrito.clear();
+            }
+
+            userPath = "/carrocompra";
+
+
+            // if checkout page is requested
+
+        } else if (userPath.equals("/checkout")) {
+
+            CarritoCompra carrito = (CarritoCompra) session.getAttribute("carrito"); 
+
+            // calculate total
+            carrito.calcularTotal(recargo);
+
+            // forward to checkout page and switch to a secure channel
+
+
+            // if user switches language
+        } 
+       
+        
+        
          else if (userPath.equals("/noRegistrado")) {
             request.getSession().setAttribute("registrado", null);
             Calendar date = Calendar.getInstance();
@@ -252,6 +236,10 @@ public class ServletControlador extends HttpServlet {
             }
            session.setAttribute("listaPais", listaPais);
         }
+        
+        
+        
+        
         String url;
         // use RequestDispatcher to forward request internally
         if (!userPath.equals("")) {
@@ -281,18 +269,15 @@ public class ServletControlador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String userPath = request.getServletPath();
         HttpSession session = request.getSession();
         Cliente cliente = (Cliente) session.getAttribute("cliente");
-//        if (userPath.equals("/anadirAlCarrito")) {
-//
-//            userPath = "/categoria";
-//
-//        } else if (userPath.equals("/actualizarCarrito")) {
-//
-//            userPath = "/categoria";
-//        } else if (userPath.equals("/realizarPago")) {
-//            userPath = "/categoria";
+        Cliente cliente2;
+        CarritoCompra carrito = (CarritoCompra) session.getAttribute("carrito");
+        Validator validator = new Validator();
+        
+
         if (userPath.equals("/iniciarSesion")) {
             if (cliente == null) {
 
@@ -316,10 +301,117 @@ public class ServletControlador extends HttpServlet {
             session.setAttribute("loggedIn", null);
             userPath = "";
 //
+        
         } else if (userPath.equals("/noRegistrado")) {
-            System.out.println("holaaanoregistrado");
+            
             userPath = "/registrarme";
-        } //else if (userPath.equals("/registrar")) {
+        
+        
+        } else if (userPath.equals("/agregarAlCarrito")) {
+
+            // if user is adding item to cart for first time
+            // create cart object and attach it to user session
+            if (carrito == null) {
+
+                carrito = new CarritoCompra();
+                session.setAttribute("carrito", carrito);
+            }
+
+            // get user input from request
+            String idProducto = request.getParameter("idProducto");
+
+            if (!idProducto.isEmpty()) {
+
+                Producto producto = productoFacade.find(Integer.parseInt(idProducto));
+                carrito.agregarItem(producto);
+            }
+            
+            System.out.println(carrito.getNumeroDeItems());
+
+            userPath = "/carrocompra";
+
+
+        // if updateCart action is called
+        } else if (userPath.equals("/actualizarCarrito")) {
+
+            // get input from request
+            String idProducto = request.getParameter("idProducto");
+            String cantidad = request.getParameter("cantidad");
+
+            boolean invalidEntry = validator.validateQuantity(idProducto, cantidad);
+
+            if (!invalidEntry) {
+
+                Producto producto = productoFacade.find(Integer.parseInt(idProducto));
+                carrito.update(producto, cantidad);
+            }
+
+            userPath = "/cart";
+
+        } else if (userPath.equals("/realizarCompra")) {
+
+            if (carrito != null) {
+
+                // extract user data from request
+                String name = request.getParameter("name");
+                String email = request.getParameter("email");
+                String phone = request.getParameter("phone");
+                String address = request.getParameter("address");
+                String cityRegion = request.getParameter("cityRegion");
+                String ccNumber = request.getParameter("creditcard");
+
+                // validate user data
+                boolean validationErrorFlag = false;
+                validationErrorFlag = validator.validateForm(name, email, phone, address, cityRegion, ccNumber, request);
+                // if validation error found, return user to checkout
+                if (validationErrorFlag == true) {
+                    request.setAttribute("validationErrorFlag", validationErrorFlag);
+                    userPath = "/checkout";
+
+                    // otherwise, save order to database
+                } else {
+                    
+                    cliente = clienteFacade.buscarPorCorreo(email);
+                      
+                    int orderId = manejadorOrden.placeOrder(cliente, carrito);
+                    
+                    System.out.println("Order ID: " + orderId);
+
+                    // if order processed successfully send user to confirmation page
+                    if (orderId != 0) {
+                        
+                        System.out.println("LO INSERTO!!");
+
+                        // dissociate shopping cart from session
+                        carrito = null;
+
+                        // end session
+                        session.invalidate();
+
+
+                        // get order details
+                        Map orderMap = manejadorOrden.getOrderDetails(orderId);
+
+                        // place order details in request scope
+                        request.setAttribute("customer", orderMap.get("customer"));
+                        request.setAttribute("products", orderMap.get("products"));
+                        request.setAttribute("orderRecord", orderMap.get("orderRecord"));
+                        request.setAttribute("orderedProducts", orderMap.get("orderedProducts"));
+
+                        userPath = "/confirmacionCompra";
+
+                    // otherwise, send back to checkout page and display error
+                    } else {
+                        userPath = "/checkout";
+                        request.setAttribute("orderFailureFlag", true);
+                    }
+                }
+            }
+        }
+        
+        
+        
+        //else if (userPath.equals("/registrar")) {
 //            String name = request.getParameter("name");
 //                String email = request.getParameter("email");
 //                String phone = request.getParameter("phone");
@@ -332,6 +424,8 @@ public class ServletControlador extends HttpServlet {
 //
 //        }
 //
+        
+        
         String url;
         // use RequestDispatcher to forward request internally
         if (!userPath.equals("")) {

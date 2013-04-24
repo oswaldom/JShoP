@@ -1,31 +1,5 @@
-<div id="categoryLeftColumn">
-
-    <c:forEach var="categoria" items="${categorias}">
-
-        <c:choose>
-            <c:when test="${categoria.nombreCategoria == categoriaSeleccionada.nombreCategoria}">
-                <div class="categoryButton" id="selectedCategory">
-                    <span class="categoryText">
-                        ${categoria.nombreCategoria}
-                    </span>
-                </div>
-            </c:when>
-            <c:otherwise>
-                <a href="<c:url value='categoria?${categoria.idCategoria}'/>" class="categoryButton">
-                    <span class="categoryText">
-                        ${categoria.nombreCategoria}
-                    </span>
-                </a>
-            </c:otherwise>
-        </c:choose>
-
-    </c:forEach>
-
-</div>
 
 <div id="categoryRightColumn">
-
-
 
     <div class="productDetail">   
         <div class="productImage">
@@ -59,10 +33,10 @@
             <br>&euro; ${productoSeleccionado.precioProducto}
 
             <br>
-            <%--<form id="slick-login" action="<c:url value='addToCart'/>" method="post">
+            <form id="slick-login" action="<c:url value='agregarAlCarrito'/>" method="post">
                 <input type="hidden"
-                       name="productId"
-                       value="${selectedProduct.id}">
+                       name="idProducto"
+                       value="${productoSeleccionado.idProducto}">
                 <input type="submit"
                        name="submit"
                        value="add to cart">
@@ -70,31 +44,31 @@
         </div>
         <div class="relatedProducts">
             <strong><p style="text-align:left">Productos relacionados:</p></strong>
-            <c:forEach var="product"  items="${relatedProducts}" varStatus="iter">
+            <c:forEach var="producto"  items="${relatedProducts}" varStatus="iter">
 
                 <td class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
                     
-                    <c:if test="${product.id!=selectedProduct.id}">
-                        <a href="product?${product.id}">
+                    <c:if test="${producto.idProducto != productoSeleccionado.idProducto}">
+                        <a href="producto?${producto.idProducto}">
                     <div class="productImage75">
-                        <img src="${initParam.productImagePath}${product.name}.png"
-                             alt="${product.name}"
+                        <img src="${initParam.productImagePath}${producto.nombreProducto}.png"
+                             alt="${producto.nombreProducto}"
                              width="75">
                         <div class="textpI75">
-                            ${product.name}
+                            ${producto.nombreProducto}
                         </div>
                     </div></a>
                         
-                        <%--
-                        <a href="<c:url value='product?${product.id}'/>">
+                        
+                        <a href="<c:url value='producto?${producto.idProducto}'/>">
                             <span class="productLabel"></span>
-                            <span class="productLabelText">${product.name}</span>
+                            <span class="productLabelText">${producto.nombreProducto}</span>
 
-                        </a>&euro; ${product.price}</td>
+                        </a>&euro; ${producto.precioProducto}</td>
                     </c:if>
                 </td>
 
-            </c:forEach>--%>
+            </c:forEach>
         </div>
     </div>
 </div>

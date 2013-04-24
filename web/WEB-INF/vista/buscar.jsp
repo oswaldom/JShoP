@@ -3,9 +3,6 @@
     Created on : 21-abr-2013, 18:54:36
     Author     : oswaldomaestra
 --%>
-<div id="categoryLeftColumn">
-    
-</div>
 
 <div id="categoryRightColumn">
 

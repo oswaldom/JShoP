@@ -10,6 +10,11 @@
         <param-name>productImagePath</param-name>
         <param-value>img/products/</param-value>
     </context-param>
+    <context-param>
+        <description>El recargo por entrega aplicada a todas las ordenes</description>
+        <param-name>recargoPorEntrega</param-name>
+        <param-value>25.00</param-value>
+    </context-param>
     <servlet>
         <servlet-name>ServletOpenId</servlet-name>
         <servlet-class>controlador.ServletOpenId</servlet-class>

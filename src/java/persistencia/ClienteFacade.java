@@ -8,6 +8,7 @@ import controlador.ControladorCorreo;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -138,5 +139,9 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+        
+    public Cliente buscarPorCorreo(Object id) {
+        return (Cliente) em.createNamedQuery("Cliente.buscarPorCorreo").setParameter("correoElectronico", id).getSingleResult();
     }
 }
