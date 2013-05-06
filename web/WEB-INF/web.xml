@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <context-param>
+        <description>The relative path to product images</description>
+        <param-name>categoriaImagePath</param-name>
+        <param-value>img/categories/</param-value>
+    </context-param>
+    <context-param>
+        <description>The relative path to product images</description>
+        <param-name>productoImagenPath</param-name>
+        <param-value>img/products/</param-value>
+    </context-param>
+    <context-param>
+        <description>El recargo por entrega aplicada a todas las ordenes</description>
+        <param-name>recargoPorEntrega</param-name>
+        <param-value>25.00</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>ServletOpenId</servlet-name>
+        <servlet-class>controlador.ServletOpenId</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletOpenId</servlet-name>
+        <url-pattern>/ServletOpenId</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <jsp-config>
+        <jsp-property-group>
+            <description>Para agregar header y footer a las paginas seleccionadas</description>
+            <display-name>Agregar Header y Footer</display-name>
+            <url-pattern>/index.jsp</url-pattern>
+            <url-pattern>/WEB-INF/vista/*</url-pattern>
+            <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+        <jsp-property-group>
+            <description>JSP configuration for the admin console</description>
+            <url-pattern>/admin/index.jsp</url-pattern>
+            <url-pattern>/admin/login.jsp</url-pattern>
+            <url-pattern>/admin/error.jsp</url-pattern>
+            <url-pattern>/admin/actualizarOrden.jsp</url-pattern>
+            <include-prelude>/admin/jspf/header.jspf</include-prelude>
+            <include-coda>/admin/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+        <jsp-property-group>
+            <description>Agregar menu a paginas de perfil</description>
+            <display-name>Menu perfil</display-name>
+            <url-pattern>/WEB-INF/vista/perfil.jsp</url-pattern>
+            <url-pattern>/WEB-INF/vista/orden.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jspf/perfil_menu.jspf</include-prelude>
+        </jsp-property-group>
+        <jsp-property-group>
+            <display-name>Menu categoria</display-name>
+            <url-pattern>/index.jsp</url-pattern>
+            <url-pattern>/WEB-INF/vista/categoria.jsp</url-pattern>
+            <url-pattern>/WEB-INF/vista/producto.jsp</url-pattern>
+            <url-pattern>/WEB-INF/vista/buscar.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jspf/menu_categoria.jspf</include-prelude>
+        </jsp-property-group>
+    </jsp-config>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/admin/login.jsp</form-login-page>
+            <form-error-page>/admin/error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>jshopAdmin</role-name>
+    </security-role>
+</web-app>

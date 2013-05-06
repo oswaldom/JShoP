@@ -1,0 +1,15 @@
+<div id="indexLeftColumn">
+
+    <c:forEach var="categoria" items="${categorias}">
+
+        <c:if test="${categoria.categoriaList.isEmpty()}">
+            <div class="categoriaBox">
+                <a href="<c:url value='categoria?${categoria.idCategoria}'/>">
+                    <div class="categoriaButton">${categoria.nombreCategoria}</div>
+                </a>
+            </div>
+        </c:if>
+    </c:forEach>
+                
+
+</div>

@@ -1,0 +1,320 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        
+
+        <script src="js/jquery-1.4.2.js" type="text/javascript"></script>
+        <script src="js/jquery-ui-1.8.4.custom.min.js" type="text/javascript"></script>       
+       <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" media="screen" charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="css/Base.css">
+        <link rel="stylesheet" type="text/css" href="css/BreadCrumb.css">
+
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/ribbon.css">
+        <link rel="stylesheet" type="text/css" href="css/jshop-style.css">
+        <link rel="stylesheet" type="text/css" href="css/jshop-style2.css">
+        <link rel="stylesheet" type="text/css" href="css/jshop-buttons.css">
+        <link rel="stylesheet" type="text/css" href="css/jshop-perfil.css">
+        
+        <link rel="stylesheet" type="text/css" href="css/messi.css">
+        <link rel="stylesheet" type="text/css" href="css/jqautocomplete.css">
+        <%-- <link rel="stylesheet" type="text/css" href="css/style.css">--%>
+        <%--<script type="text/javascript" src="js/dropdownList.js"></script>--%>
+        <script src="js/messi.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/login.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/table-style.css">
+        
+        <script type="text/javascript" src="js/messi.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js">
+        </script>
+        
+        
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"  charset="utf-8"></script>        
+        <script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js" charset="utf-8"></script>       
+        <script type="text/javascript" src="js/jquery.chained.js"  charset="utf-8"></script>
+        <script type="text/javascript" src="js/table-script.js"></script>
+ <link rel="stylesheet" type="text/css" href="css/msdropdown/dd.css" />
+        <script src="js/msdropdown/jquery.dd.js"></script>
+        <%--<script src="js/jquery.easing.1.3.js" type="text/javascript" language="JavaScript">
+        </script>
+        <script src="js/jquery.jBreadCrumb.1.1.js" type="text/javascript" language="JavaScript">
+        </script>
+        
+        <script type="text/javascript">
+            jQuery(document).ready(function()
+            {
+                jQuery("#breadCrumb3").jBreadCrumb();
+            });
+        </script>--%>
+
+        <script type="text/javascript" src="js/jqautocomplete.js"></script>
+        <script type="text/javascript" src="js/shoppingCartToggle.js"></script>
+        <%--<script type="text/javascript" src="js/dropdownList.js"></script>--%>
+
+
+        <title>JShoP, JSP e-Commerce</title>
+    </head>
+
+    <body>
+        <div id="mensajesPopup">
+            <c:if test="${mensaje eq 'noCarrito'}">
+                <script>new Messi('<p>No puede empezar a comprar sin iniciar sesion</p>\n\
+                            <p>Por favor, iniciela.</p>',
+                            {title: 'Inicie sesion', titleClass: 'error', modal: true, buttons: [{id: 0, label: 'Ok', val: '#', class: 'btn-success'}]
+                            });
+                </script>    
+            </c:if>
+            <c:if test="${mensaje eq 'noRegistrado'}">
+                <script>new Messi('<p>No se ha podido autenticar con Google</p>\n\
+                                    <p><strong>${correoElectronico}</strong> no se encuentra registrado.</p> \n\
+                                    <p>Debe registrarse para iniciar sesion</p>',
+                                    {title: 'Registrese', titleClass: 'error', modal: true, buttons: [{id: 0, label: 'Registrarme', val: 'registrarme', class: 'btn-success'}, {id: 1, label: 'Cancelar', val: '#'}],
+                                        callback: function(val) {
+                                            if (val === "registrarme") {
+                                                document.location.href = val;
+                                            }
+                                        }});
+                </script>    
+            </c:if>
+            <c:if test="${mensaje eq 'noTDC'}">
+                <script>new Messi('<p>No se ha puede hacer checkout</p>\n\
+                                    <p>Su cuenta <strong>${correoElectronico}</strong> no presenta metodos de pagos disponibles</p> \n\
+                                    <p>Si lo desea pude agregar uno en el siguiente enlace</p>\n\
+                                    <p>O visite dirijase a Ver Perfil > Metodos de pago > Agregar.</p>',
+                                    {title: 'No presenta metodos de pago', titleClass: 'error', modal: true, buttons: [{id: 0, label: 'Anadir tarjeta', val: 'verPerfil?metodosDePago', class: 'btn-success'}, {id: 1, label: 'Cerrar', val: '#'}],
+                                        callback: function(val) {
+                                            if (val === "verPerfil?metodosDePago") {
+                                                document.location.href = val;
+                                            }
+                                        }});
+                </script>    
+            </c:if>
+            <c:if test="${mensaje eq 'oopsIniciaSesion'}">
+                <script>new Messi('<p>Error</p>\n\
+                            <p>Quizas debas iniciar sesion</p>',
+                            {title: 'Oops, ', titleClass: 'error', modal: true, buttons: [{id: 1, label: 'Cerrar', val: '#'}]
+                            });
+                </script>    
+            </c:if>
+            <c:if test="${mensaje eq 'oopsError'}">
+                <script>new Messi('<p>Error</p>\n\
+                            <p>La pagina solicitada no esta disponible o no existe</p>',
+                            {title: 'Oops, ', titleClass: 'error', modal: true, buttons: [{id: 1, label: 'Cerrar', val: '#'}]
+                            });
+                </script>    
+            </c:if>
+            <c:if test="${mensaje eq 'registroExitoso'}">
+                <script>new Messi('<p>¡Registro exitoso!</p>\n\
+                                    <p><strong>${param.nombre}</strong> <strong>${param.apellido}</strong> felicidades, hemos procesado su registro exitosamente</p> \n\
+                                    <p>Sin embargo, debe proceder a activar su cuenta, revise su correo electrónico:</p>\n\
+                                    <p><strong>${param.correo}</strong></p>'
+                                    ,
+                                    {title: '¡Registro exitoso!', titleClass: 'success', modal: true, buttons: [{id: 0, label: 'Aceptar'}]
+                                    })
+
+                </script>    
+            </c:if>
+            <c:if test="${mensaje eq 'cuentaActivada'}">
+                <script>new Messi('<p>Felicidades, su cuenta ha sido activada</p>\n\
+                                    <p><strong>${correoElectronico}</strong> ahora puede iniciar sesion.</p>',
+                                    {title: 'Cuenta activada', titleClass: 'success', modal: true, buttons: [{id: 0, label: 'Ok'}],
+                                    })
+                </script>    
+            </c:if>
+            <c:if test="${mensaje eq 'cuentaNoActivada'}">
+                <script>new Messi('<p>No se ha podido iniciar sesión</p>\n\
+                                    <p>Su cuenta <strong>${correoElectronico}</strong> no ha sido activada.</p> \n\
+                                    <p>revise su correo electronico y active su cuenta para iniciar sesión.</p>\n\
+                                    <p>Si lo desea puede solicitar su enlace de activación.</p>',
+                                    {title: 'No se pudo iniciar sesión', titleClass: 'error', modal: true, buttons: [{id: 0, label: 'Solicitar enlace', val: 'solicitarEnlace', class: 'btn-success'}, {id: 1, label: 'Cerrar', val: '#'}],
+                                        callback: function(val) {
+                                            if (val === "solicitarEnlace") {
+                                                document.location.href = val;
+                                            }
+                                        }});
+                </script>    
+            </c:if>
+            <c:if test="${mensaje eq 'Invalido'}">
+                <script>new Messi('<p>No se ha podido iniciar sesión</p>\n\
+                            <p>Contraseña o correo electronico invalido(s)</p> \n\
+                            <p>Intente de nuevamente, de no tener usuario, registrese</p>',
+                            {title: 'No se pudo iniciar sesión', titleClass: 'error', modal: true, buttons: [{id: 0, label: 'Registrarme', val: 'registrarme', class: 'btn-success'}, {id: 1, label: 'Cerrar', val: '#'}],
+                                callback: function(val) {
+                                    if (val === "registrarme") {
+                                        document.location.href = val;
+                                    }
+                                }});
+                </script>   
+            </c:if>
+        </div>
+        <div id="main">
+            <div id="header">
+                <div id="widgetBar">
+                    <div id="logo">
+                        <a href="<c:url value='/'/>">
+                            <img src="img/logo.png" id="logo" alt="JShoP logo">
+                        </a>
+                    </div>
+                    <div class="headerWidget">
+
+                        <c:if test="${(empty loggedIn)}">
+                            <a href="#" class="login_btn" style="margin-top: 23px; margin-right: 20px; float:right;">
+                                <button class="btn btn-info" type="button" >Iniciar sesión</button></a>
+                            <a href="<c:url value='registrarme'/>">
+                                <button style="margin-top: 25px; margin-right: 10px; float:right;" class="btn btn-success">Registrese</button></a>
+                            <div id="login_box">
+                                <div class="tab"><a href="..." class="login_btn" style="margin-top: 23px; margin-right: 40px; float:right;">
+                                        <button class="btn btn-info" type="button" >Iniciar sesión</button></a></div>
+                                <div id="login_box_content">
+
+                                    <form id="login_form" action="<c:url value='iniciarSesion'/>" method="post">
+                                        <input type="text" placeholder="Correo electrónico" id="correo"
+                                               name="correo" value="${param.correo}"/>
+                                        <input type="password" placeholder="Contraseña" id="pswd"
+                                               name="pswd" value="${param.pswd}" />
+                                        <br>
+                                        <div style="margin-left: 45px">
+                                            <button class="btn" type="submit">Ok</button> 
+                                            <a href="ServletOpenId?op=Google" style="color: white">
+                                                <button class="btn btn-google" type="button" >con Google</button></a>
+                                            <a class="hidePanel">
+                                                <button class="btn btn-warning" type="button" style="width:32px">X</button></a>
+                                        </div>
+                                </div>
+                                </form>
+
+                            </div>
+
+
+                        </c:if>
+                        <c:if test="${loggedIn eq 'Valido'}">
+                            <a href="#" class="login_btn"  style="margin-top: 25px; margin-right: 20px; float:right;">
+                                <button class="btn btn-info" type="button" >${correoElectronico}</button></a>
+                            <div id="login_box">
+                                <a href="..." class="login_btn" style="margin-top: 25px; margin-right: 80px; float:right;"><button class="btn btn-info" type="button" >${correoElectronico}</button></a>
+
+                                <div id="login_box_content">
+                                    <form  action="<c:url value='cerrarSesion?${idCliente}'/>" method="post">
+                                        <input class="btn btn-danger" type="submit" value="Cerrar sesión" style="cursor:pointer"/>
+                                        <a  href="<c:url value='perfil'/>">
+                                            <button class="btn btn-success" type="button" style="margin-top:5px;" >Ver perfil</button></a>
+                                        <a class="hidePanel"><button class="btn btn-warning" type="button" style="margin-top:5px; width:32px">X</button></a>
+                                    </form>
+                                </div>
+                            </div></c:if>
+
+                        </div>
+                        <div class="headerWidget">
+                            <div id='search-box'>
+
+                                <form action="buscar" id="search-form" method="get" target="_top">
+                                    <div class="styled-select" style="margin-top:-7px;margin-right: 350px; width:60px;">
+                                        <select id="categoriaSeleccionada" name="categoriaSeleccionada">
+                                            <option value="" selected>Todas las categorias</option>
+                                        <c:forEach var="categoria" items="${categorias}">
+                                            <c:if test="${categoria.categoriaList.isEmpty()}">
+                                                <option value="${categoria.idCategoria}">
+                                                    ${categoria.nombreCategoria}</option>
+                                                </c:if>
+                                            </c:forEach>
+
+                                    </select> 
+                                </div>
+                                <input id='search-text' name='q' placeholder='Buscar producto...' type='text'/>
+                                <button class='btn btn-info'  type='submit' 
+                                        style="position: absolute;
+                                        top: 5px;
+                                        right: 4px;
+                                        height: 32px;
+                                        width: 80px;
+                                        font-size: 14px;
+                                        color: #fff;">Buscar</button>
+
+                            </form>
+
+                            <script>
+                                $("#search-text").autocomplete("getdata.jsp");
+                            </script>
+
+                        </div>   </div>
+
+                    <div class="headerWidget" id="viewCart" >
+                            <c:if test="${loggedIn eq 'Valido'}">
+                    
+                        <c:if test="${
+                              !fn:contains(pageContext.request.servletPath,'/Carrito') &&
+                                  requestScope['javax.servlet.forward.servlet_path'] ne '/Carrito'}">
+                              
+                             
+
+                              <a class="viewCart" href="<c:url value='#'/>">
+                                  
+                                  <img class="viewCart" src="/JShoP/img/shopping_cart.png">
+                              </a>
+                        </c:if>
+
+                        <div id="shoppingCart_box">
+
+                            <div id="shoppingCart_box_content">
+        
+                                <span class="horizontalMargin">
+
+                                    <c:choose>
+                                        <c:when test="${carrito.numeroDeItems == null}">
+                                            0
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${carrito.numeroDeItems}
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    <%-- Se maneja el singular y plural de "item" --%>
+                                    <c:choose>
+                                        <c:when test="${carrito.numeroDeItems == 1}">
+                                            <c:out value="item" />
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:out value="items" />
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
+
+                                <form id="login_form" action="verCarrito" method="get">
+
+                                    <input type="submit" value="Ver carrito" style="cursor:pointer"/>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    
+                                    </c:if>
+                        </div>
+
+                    <div class="breadCrumbHolder module">
+                        <div id="breadCrumb3" class="breadCrumb module">
+                            <ul>
+                                <li>
+                                    <a href="/JShoP">Inicio</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+

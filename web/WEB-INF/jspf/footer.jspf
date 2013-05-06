@@ -1,0 +1,12 @@
+<div id="footer">
+                <br>
+                <p id="footerText" class="reallySmallText">
+                    <a href="<c:url value='${urel}'/>">JShoP e-Commerce</a>
+                    &nbsp;&nbsp;::&nbsp;&nbsp;
+                    <a href="<c:url value='mailto:jshop.ecommerce@gmail.com'/>">Contacto</a>
+                    &nbsp;&nbsp;&copy;&nbsp;&nbsp;
+                    2013</p>
+            </div>
+        </div>
+    </body>
+</html>
