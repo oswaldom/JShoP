@@ -1,0 +1,77 @@
+* {margin:0; padding:0; outline:none}
+.sortable {width:700px; border-left:1px solid #c6d5e1; border-top:1px solid #c6d5e1; border-bottom:none; margin:0 auto 15px}
+.sortable th { text-align:left; color:white; border:1px solid #fff; border-right:none}
+.sortable th h3 {font-size:15px; color:white;padding:6px 8px 8px}
+.sortable td {padding:4px 6px 6px; border-bottom:1px solid #c6d5e1; border-right:1px solid #c6d5e1}
+.sortable .head h3 {background:url(table-img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
+.sortable .desc, .sortable .asc {background:url(table-img/header-selected-bg.gif)}
+.sortable .desc h3 {background:url(table-img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
+.sortable .asc h3 {background:url(table-img/asc.gif) 7px  center no-repeat; cursor:pointer; padding-left:18px}
+.sortable .head:hover, .sortable .desc:hover, .sortable .asc:hover {color:white}
+.sortable .evenrow td {background:#fff}
+.sortable .oddrow td {background:#ecf2f6}
+.sortable td.evenselected {background:#ecf2f6}
+.sortable td.oddselected {background:#dce6ee}
+thead{
+    background: #0074cc;
+}
+
+* {margin:0; padding:0}
+.tablaProducto {width:700px; margin:0 auto 15px}
+.tablaProducto th { text-align:left; color:#cfdce7;  border-right:none}
+.tablaProducto th h3 {font-size:15px; padding:6px 8px 8px}
+.tablaProducto td {width:233px; height: 233px}
+.tablaProducto .head h3 {background:url(table-img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
+.tablaProducto .desc, .tablaProducto .asc {background:url(table-img/header-selected-bg.gif)}
+.tablaProducto .desc h3 {background:url(table-img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
+.tablaProducto .asc h3 {background:url(table-img/asc.gif) 7px  center no-repeat; cursor:pointer; padding-left:18px}
+.tablaProducto .head:hover, .tablaProducto .desc:hover, .tablaProducto .asc:hover {color:white}
+.tablaProducto .evenrow td {background:#fff}
+.tablaProducto .oddrow td {background:#ecf2f6}
+.tablaProducto td.evenselected {background:#ecf2f6}
+.tablaProducto td.oddselected {background:#dce6ee}
+
+.productoRelacionado {width:300px; margin:0 auto 15px}
+.productoRelacionado th { text-align:left; color:#cfdce7;  border-right:none}
+.productoRelacionado th h3 {font-size:15px; padding:6px 8px 8px}
+.productoRelacionado td {text-align: center; width:50px; height: 150px;text-overflow:ellipsis}
+/*.productoRelacionado td productoImagen75 {text-align: center;
+                                          float: left;
+                                          height: 75px;
+                                          width: 75px;
+                                          }*/
+.productoRelacionado .head h3 {background:url(table-img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
+.productoRelacionado .desc, .productoRelacionado .asc {background:url(table-img/header-selected-bg.gif)}
+.productoRelacionado .desc h3 {background:url(table-img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
+.productoRelacionado .asc h3 {background:url(table-img/asc.gif) 7px  center no-repeat; cursor:pointer; padding-left:18px}
+.productoRelacionado .head:hover, .productoRelacionado .desc:hover, .productoRelacionado .asc:hover {color:white}
+.productoRelacionado .evenrow td {background:#fff}
+.productoRelacionado .oddrow td {background:#ecf2f6}
+.productoRelacionado td.evenselected {background:#ecf2f6}
+.productoRelacionado td.oddselected {background:#dce6ee}
+
+#controls {width:700px; margin:0 auto; height:20px}
+#perpage {float:left; width:200px}
+#perpage select {float:left; font-size:15px}
+#perpage span {float:left; margin:2px 0 0 5px}
+#navigation {float:left; width:580px; text-align:center}
+#navigation img {cursor:pointer}
+#text {float:left; width:200px; text-align:right; margin-top:2px}
+
+* {margin:0; padding:0; outline:none}
+.tablaOrdenProducto {width:400px; border-left:1px solid #c6d5e1; border-top:1px solid #c6d5e1; border-bottom:none; margin:0 auto 15px}
+.tablaOrdenProducto th { text-align:left; color:white; border:1px solid #fff; border-right:none}
+.tablaOrdenProducto th h3 {font-size:15px; color:white;padding:6px 8px 8px}
+.tablaOrdenProducto td {padding:4px 6px 6px; border-bottom:1px solid #c6d5e1; border-right:1px solid #c6d5e1}
+.tablaOrdenProducto .head h3 {background:url(table-img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
+.tablaOrdenProducto .desc, .tablaOrdenProducto .asc {background:url(table-img/header-selected-bg.gif)}
+.tablaOrdenProducto .desc h3 {background:url(table-img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
+.tablaOrdenProducto .asc h3 {background:url(table-img/asc.gif) 7px  center no-repeat; cursor:pointer; padding-left:18px}
+.tablaOrdenProducto .head:hover, .tablaOrdenProducto .desc:hover, .tablaOrdenProducto .asc:hover {color:white}
+.tablaOrdenProducto .evenrow td {background:#fff}
+.tablaOrdenProducto .oddrow td {background:#ecf2f6}
+.tablaOrdenProducto td.evenselected {background:#ecf2f6}
+.tablaOrdenProducto td.oddselected {background:#dce6ee}
+
+.tablaDetalleOrden h3{text-align: left;}
+.tablaDetalleOrden td{text-align: right;}

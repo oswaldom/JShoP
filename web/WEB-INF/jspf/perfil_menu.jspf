@@ -1,0 +1,37 @@
+<div id='menuPerfil'>
+    <br>
+         <table cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+            <tr>
+                <th>
+                 <a href="<c:url value='verPerfil?pedidos'/>">   
+            <div class="perfilBoton">
+                
+                    Pedidos
+                
+            </div></a>
+                </th>
+                
+                <th>
+                  <a href="<c:url value='verPerfil?metodosDePago'/>">  
+            <div class="perfilBoton">
+                
+                    Métodos de pago
+                
+            </div></a>
+                </th>
+                <%--<th>
+               <a href="<c:url value='verPerfil?miCuenta'/>">     
+            <div class="perfilBoton">
+                
+                    Mi Cuenta
+                
+            </div></a>
+                </th>--%>
+            </tr>
+        </tbody>
+    </table>
+        
+        
+        
+</div>

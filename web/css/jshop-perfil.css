@@ -1,0 +1,57 @@
+#menuPerfil{
+    height: auto;
+    width: 1000px;
+    margin:0 auto;
+}
+#columnaDerechaPerfil{
+    height: auto;
+    width: 780px;
+    /*background-color: #d3ede8;*/
+    margin: 0 auto;
+}
+.perfilBoton {
+    
+    border-radius: 2px;
+    opacity: 1;
+    height: 40px;
+    width: 210px;
+    margin: 2px;
+    border: 2px solid cornflowerblue;
+    line-height: 200%;
+    text-align:center;
+    font-size: large;
+    text-height:auto;
+    
+}
+.perfilBoton h2{
+    font-
+    font-weight:bold;
+}
+.perfilBoton:hover {
+
+    background: -webkit-gradient(linear, left top, left bottom, from(#4678D7), to(#8FBFF7));
+    color: #fff;
+}
+
+.tarjetaDeCredito {
+    height: 300px;
+    width: 300px;
+    text-align: right;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.detallesOrden {
+    width:auto;
+    margin-left: -80px;
+       float:left;
+}
+.productosOrden {
+    margin-right: -80px;
+   float:right;
+}
+.viewCart{
+    margin-top: 10px;
+    width: 60px;
+    height: 60px;
+}

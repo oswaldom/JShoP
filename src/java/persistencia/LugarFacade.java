@@ -1,0 +1,56 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package persistencia;
+
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import modelo.Lugar;
+
+/**
+ *
+ * @author Jesus
+ */
+@Stateless
+public class LugarFacade extends AbstractFacade<Lugar> {
+    @PersistenceContext(unitName = "JShoPPU")
+    private EntityManager em;
+
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    public LugarFacade() {
+        super(Lugar.class);
+    }
+    
+    public List<Lugar> listarPorTipo(String tipo) {
+        Query q = em.createNamedQuery("Lugar.buscarPorTipoLugar")
+                .setParameter("tipoLugar", tipo);
+        try {
+            return q.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public String obtenerUbicacion(Lugar lugar) {
+        String direccion = "";
+        if (lugar != null) {
+            direccion = lugar.getNombreLugar();
+            while (lugar!= null) {
+                lugar = lugar.getFkLugar();
+                if (lugar!=null)
+                direccion = direccion + ", " + lugar.getNombreLugar();
+                
+            }
+        }
+        return direccion;
+    }
+}
